@@ -27,7 +27,15 @@ public class FP03SumAllNumbers {
                 // 0 and (a,b) -> a+b
                 // 0 is the initial value
                 // (a,b) is the binary function (accumulation function) used to reduce list in a single value
+                // "a" is the initial/final value or the partial accumulated value
+                // "b" is current stream value
+                // use the second "reduce" and comment this one to see how the function works
                 .reduce(0, (a,b) -> a+b);
+                //.reduce(0, FP03SumAllNumbers::sum);
+    }
 
+    private static int sum(int a, int b) {
+        System.out.println("a = "+a+" -  B = "+b);
+        return a+b;
     }
 }
