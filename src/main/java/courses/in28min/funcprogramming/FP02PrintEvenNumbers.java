@@ -2,7 +2,7 @@ package courses.in28min.funcprogramming;
 
 import java.util.List;
 
-public class FuncProgramming02 {
+public class FP02PrintEvenNumbers {
     public static void main(String[] args) {
         List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
 
@@ -23,8 +23,8 @@ public class FuncProgramming02 {
 
     private static void printEvenListNumberFunctional(List<Integer> numbers) {
         numbers.stream()
-                .filter(FuncProgramming02::isEven)
-                .forEach(FuncProgramming02::printNumber);
+                .filter(FP02PrintEvenNumbers::isEven)
+                .forEach(FP02PrintEvenNumbers::printNumber);
     }
 
     private static void printNumber(int number) {

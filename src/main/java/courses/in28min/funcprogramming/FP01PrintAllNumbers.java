@@ -2,7 +2,7 @@ package courses.in28min.funcprogramming;
 
 import java.util.List;
 
-public class FuncProgramming01 {
+public class FP01PrintAllNumbers {
     public static void main(String[] args) {
         List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
 
@@ -21,7 +21,7 @@ public class FuncProgramming01 {
 
     private static void printAllListNumberFunctional(List<Integer> numbers) {
         numbers.stream()
-                .forEach(FuncProgramming01::printNumber);
+                .forEach(FP01PrintAllNumbers::printNumber);
     }
 
     private static void printNumber(int number) {
