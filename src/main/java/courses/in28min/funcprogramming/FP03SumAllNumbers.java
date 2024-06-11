@@ -34,8 +34,8 @@ public class FP03SumAllNumbers {
                 //.reduce(0, FP03SumAllNumbers::sum);
     }
 
-    private static int sum(int a, int b) {
-        System.out.println("a = "+a+" -  B = "+b);
-        return a+b;
+    private static int sum(int aggregated, int nextNumber) {
+        System.out.println("a = "+aggregated+" -  B = "+nextNumber);
+        return aggregated+nextNumber;
     }
 }
