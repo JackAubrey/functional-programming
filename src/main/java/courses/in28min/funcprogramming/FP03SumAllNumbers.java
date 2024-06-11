@@ -32,6 +32,10 @@ public class FP03SumAllNumbers {
                 // use the second "reduce" and comment this one to see how the function works
                 .reduce(0, (a,b) -> a+b);
                 //.reduce(0, FP03SumAllNumbers::sum);
+
+                // java provide us some ready to use helper methods
+                //.reduce(0, Integer::sum);
+
     }
 
     private static int sum(int aggregated, int nextNumber) {
