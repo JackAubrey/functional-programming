@@ -1,18 +1,18 @@
-package courses.in28min.funcprogramming.exercises;
+package courses.in28min.funcprogramming.exercises.ex_03_reduce;
 
 import java.util.List;
 
-public class FPEx09SumOfOddNumbers {
+public class FPEx08CubeOfNumbersAndSum {
     public static void main(String[] args) {
         List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
 
-        int res = sumOddNumbers(numbers);
+        int res = cubeAndSum(numbers);
         System.out.println(res);
     }
 
-    private static Integer sumOddNumbers(List<Integer> numbers) {
+    private static Integer cubeAndSum(List<Integer> numbers) {
         return numbers.stream()
-                .filter(n -> n%2 != 0)
+                .map(n -> n * n * n)
                 .reduce(0, Integer::sum);
     }
 }

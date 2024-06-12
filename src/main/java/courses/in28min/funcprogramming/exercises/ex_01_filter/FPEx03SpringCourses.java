@@ -1,4 +1,4 @@
-package courses.in28min.funcprogramming.exercises;
+package courses.in28min.funcprogramming.exercises.ex_01_filter;
 
 import java.util.List;
 

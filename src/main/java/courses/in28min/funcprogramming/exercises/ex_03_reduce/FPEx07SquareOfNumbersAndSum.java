@@ -1,4 +1,4 @@
-package courses.in28min.funcprogramming.exercises;
+package courses.in28min.funcprogramming.exercises.ex_03_reduce;
 
 import java.util.List;
 

@@ -1,17 +1,16 @@
-package courses.in28min.funcprogramming.exercises;
+package courses.in28min.funcprogramming.exercises.ex_00_basic;
 
 import java.util.List;
 
-public class FPEx06CoursesNameLength {
+public class FPEx02AllCourses {
     public static void main(String[] args) {
         List<String> courses = List.of("Spring", "Spring Boot", "API" , "Microservices", "AWS", "PCF","Azure", "Docker", "Kubernetes");
 
-        printCoursesLength(courses);
+        printAllCourses(courses);
     }
 
-    private static void printCoursesLength(List<String> courses) {
+    private static void printAllCourses(List<String> courses) {
         courses.stream()
-                .map(c -> "Course \""+c+"\" is " + c.length()+" chars length")
                 .forEach(System.out::println);
     }
 }
