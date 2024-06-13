@@ -42,7 +42,8 @@ public class FuncInterface01Basic {
         // * Consumer: used to some with input data without any return
         // * Supplier: NOT SHOWN HERE is used to supply a value when there is no other value
         // Java offer many implementations of FunctionalInterface in addition to those already mentioned, such as:
-        // BiFunction, BiConsumer, BiPredicate, BinaryOperator, and so on...
+        // BiFunction, BiConsumer, BiPredicate,
+        // UnaryOperators, BinaryOperator, and so on...
         Predicate<Integer> isEvenPredicate = x -> x%2 == 0; // this is an instance of Predicate interface using lambda
         Function<Integer, Integer> squareFunction = x -> x * x; // this is an instance of Function interface using lambda
         Consumer<Integer> sysoutConsumer = x -> System.out.println(x); // this is an instance of Consumer interface using lambda
