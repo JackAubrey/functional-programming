@@ -3,6 +3,7 @@ package courses.in28min.funcprogramming.func_interfaces;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -57,6 +58,9 @@ public class FuncInterface02BehaviorParameterization {
         System.out.println("Sort Courses by reversed order string length");
         sortAndPrint(courses, StringSorter::reverseOrderLength, System.out::println);
 
+        System.out.println("Other test");
+        sortAndPrint(List.of("foo", "bar", "real", "fantasy", "red", "green"), StringSorter.compare( false, k -> k.length()), System.out::println);
+
     }
 
     private static void sortAndPrint(List<String> stream, Comparator<String> comparator, Consumer<String> consumer) {
@@ -71,7 +75,7 @@ public class FuncInterface02BehaviorParameterization {
                 .forEach(consumer);
     }
 
-    class StringSorter {
+    static class StringSorter {
         static Comparator<String> naturalOrder = (s1, s2) -> s1.compareTo(s2);
         static Comparator<String> reverseOrder = (s1, s2) -> s2.compareTo(s1);
 
@@ -93,6 +97,39 @@ public class FuncInterface02BehaviorParameterization {
 
         static int reverseOrderLength(String s1, String s2) {
             return reverseOrderLength.compare(s1, s2);
+        }
+
+        // 1 - we will receive a function (or a lambda function)
+        // for example "compare(false, s -> s.length())"
+        // the "s -> s.length()" IS the function passed into the method and performed inside our "comparator"
+        public static <String, U> Comparator<String> compare(boolean revert, Function<String, U> func) {
+            // 2 - and we return a Comparator function that accept two strings did a compare and return the result
+            return (s1, s2) -> {
+                System.out.println("S1 = ["+s1+"] - S2 = ["+s2+"]");
+                // 3 - when the comparator function will invoke with two strings
+                if(revert) {
+                    // 4.1 - we will to apply the comparing using the lambda received in input
+                    // REVERTED ORDER
+                    return ((Comparable)func.apply(s2)).compareTo(func.apply(s1));
+                } else {
+                    // 4.2 - we will to apply the comparing using the lambda received in input
+                    // NATURAL ORDER
+                    return ((Comparable)func.apply(s1)).compareTo(func.apply(s2));
+                }
+            };
+
+            // in order to understand better an example
+            //
+            // List<String> aListOfString = List.of("foo", "bar", "real", "fantasy", "red", "green");
+            // aListOfString.stream()
+            //      .sorted( StringSorter.compare(true, x -> x.length) ) <- the compare function return a Comparator
+            //      // .sorted( (s1,s2) -> ((Integer)s2.length()).compareTo(s1.length()) ) <-- this is an equivalent without Behave Param
+            //      .toList();
+            //
+            // So! What happen when the stream perform the sort?
+            // The "sort" algorithm did his work and for evey couple of string
+            // - invoke our returned "comparator" function
+            // - our comparator function use the lambada received as method input returning the comparing result
         }
     }
 
