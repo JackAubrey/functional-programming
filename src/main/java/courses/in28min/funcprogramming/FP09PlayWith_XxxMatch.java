@@ -1,8 +1,11 @@
 package courses.in28min.funcprogramming;
 
+import courses.in28min.funcprogramming.data.Course;
+import courses.in28min.funcprogramming.data.CourseCategory;
+
 import java.util.List;
 
-public class FP09CustomClass {
+public class FP09PlayWith_XxxMatch {
     public static void main(String[] args) {
         List<Course> courses = List.of(
                 new Course("Spring", CourseCategory.Framework, 98, 20000),
@@ -22,12 +25,12 @@ public class FP09CustomClass {
         //
         // we want test if ALL courses has review greater than 90 point
         boolean resultGT90 = courses.stream()
-                .allMatch(c -> FP09CustomClass.testCourseReviewGreaterThan(c, 90, false));
+                .allMatch(c -> FP09PlayWith_XxxMatch.testCourseReviewGreaterThan(c, 90, false));
         System.out.println(" Are all courses review are greater than 90 points ? "+resultGT90); // we expect true
 
         // we want test if ALL courses has review greater than 95 point
         boolean resultGT95 = courses.stream()
-                .allMatch(c -> FP09CustomClass.testCourseReviewGreaterThan(c, 95, false));
+                .allMatch(c -> FP09PlayWith_XxxMatch.testCourseReviewGreaterThan(c, 95, false));
         System.out.println(" Are all courses review are greater than 95 points ? "+resultGT95); // we expect false
 
         // Play with "noneMatch"
@@ -38,12 +41,12 @@ public class FP09CustomClass {
         //
         // we want test if ALL courses has review lower than 90 point
         boolean resultLT90 = courses.stream()
-                .noneMatch(c -> FP09CustomClass.testCourseReviewLowerThan(c, 90, false));
+                .noneMatch(c -> FP09PlayWith_XxxMatch.testCourseReviewLowerThan(c, 90, false));
         System.out.println(" Are all courses review are lower than 90 points ? "+resultLT90); // we expect true
 
         // we want test if ALL courses has review lower than 95 point
         boolean resultLT95 = courses.stream()
-                .noneMatch(c -> FP09CustomClass.testCourseReviewLowerThan(c, 95, false));
+                .noneMatch(c -> FP09PlayWith_XxxMatch.testCourseReviewLowerThan(c, 95, false));
         System.out.println(" Are all courses review lower than 95 points ? "+resultLT95); // we expect false
 
         // Play with "anyMatch"
@@ -66,9 +69,8 @@ public class FP09CustomClass {
         // we want test if there is at least one course with review points lower than X points
         int point = 95;
         boolean resultAnyLT = courses.stream()
-                .anyMatch(c -> FP09CustomClass.testCourseReviewLowerThan(c, point, false));
+                .anyMatch(c -> FP09PlayWith_XxxMatch.testCourseReviewLowerThan(c, point, false));
         System.out.println(" There is a courses review at least LOWER than "+point+" points ? "+resultAnyLT); // we expect true
-
     }
 
     static boolean testCourseReviewGreaterThan(Course course, int review, boolean printValue) {
@@ -86,62 +88,3 @@ public class FP09CustomClass {
     }
 }
 
-enum CourseCategory {
-    Framework, Microservices, FullStack, Cloud
-}
-
-class Course {
-    private String name;
-    private CourseCategory category;
-    private int reviewScore;
-    private int noOfStudents;
-
-    public Course(String name, CourseCategory category, int reviewScore, int noOfStudents) {
-        this.name = name;
-        this.category = category;
-        this.reviewScore = reviewScore;
-        this.noOfStudents = noOfStudents;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public CourseCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(CourseCategory category) {
-        this.category = category;
-    }
-
-    public int getReviewScore() {
-        return reviewScore;
-    }
-
-    public void setReviewScore(int reviewScore) {
-        this.reviewScore = reviewScore;
-    }
-
-    public int getNoOfStudents() {
-        return noOfStudents;
-    }
-
-    public void setNoOfStudents(int noOfStudents) {
-        this.noOfStudents = noOfStudents;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", reviewScore=" + reviewScore +
-                ", noOfStudents=" + noOfStudents +
-                '}';
-    }
-}
