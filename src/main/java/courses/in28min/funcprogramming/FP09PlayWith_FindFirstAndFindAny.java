@@ -21,7 +21,7 @@ public class FP09PlayWith_FindFirstAndFindAny {
                 new Course("Kubernetes", CourseCategory.Cloud, 91, 20000));
 
         // Play with "findFirst" and "findAny"
-        // These Stream functions are intermediate functions. They produce a single value.
+        // These Stream functions are short-circuiting terminal functions. They produce a single value.
         // Are typically combined with a filter.
         //
         // There is a very big difference from these two:
