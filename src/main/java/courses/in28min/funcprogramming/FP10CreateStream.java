@@ -47,7 +47,7 @@ public class FP10CreateStream {
         Arrays.stream(arrayInt).average();
         Arrays.stream(arrayInt).count();
         intStream.sum();
-        intStream.count();
+        // intStream.count(); since we have already consumed the stream with ".sum()" invocation we can not execute another command.
 
         // since here we are obtaining a "ReferencePipeline" we need to unbox before
         streamOfInteger.mapToInt(Integer::intValue).sum();
