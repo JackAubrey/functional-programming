@@ -25,24 +25,46 @@ public class FP09PlayWith_MaxAndMin {
         //      MAX - Returns the maximum element (NOT THE MAXIMUM VALUE) of this stream according to the provided Comparator.
         //      MIN - Returns the minimum element (NOT THE MINIMUM VALUE) of this stream according to the provided Comparator.
         //
-        // Try to uncomment the ".reversed()" function to see tha max and min results will be swapped because this two function didn't find the max and min value.
+        // Try to uncomment the ".reversed()" function to see that max and min results will be swapped
+        // because this two functions don't find the max and min value but the minimum and maximum element.
         Comparator<Course> cmpByStudentsAndReviewScore = Comparator.comparingInt(Course::getNoOfStudents)
                 .thenComparingInt(Course::getReviewScore)
-                /*.reversed() */;
+                /*.reversed()*/;
 
         String max = courses.stream()
                 .max(cmpByStudentsAndReviewScore)
-                .map(c -> c.getName()+":"+c.getNoOfStudents()+":"+c.getReviewScore())
+                .map(c -> c.getName()+", students: "+c.getNoOfStudents()+", review score: "+c.getReviewScore())
                 .orElse("NONE FOUND");
 
         System.out.println("Max "+max);
 
         String min = courses.stream()
                 .min(cmpByStudentsAndReviewScore)
-                .map(c -> c.getName()+":"+c.getNoOfStudents()+":"+c.getReviewScore())
+                .map(c -> c.getName()+", students: "+c.getNoOfStudents()+", review score: "+c.getReviewScore())
                 .orElse("NONE FOUND");
 
         System.out.println("Min "+min);
+
+        /*
+         * Look the result
+         *
+         *      Max Microservices, students: 25000, review score: 96
+         *      Min FullStack, students: 14000, review score: 91
+         *
+         * But if you enable the "reversed" comparator method
+         *
+         *      Max FullStack, students: 14000, review score: 91
+         *      Min Microservices, students: 25000, review score: 96
+         *
+         * The results are swapped. This is exactly in accord about the "min" and "max" java-doc definition:
+         *
+         *      "Returns the MAXIMUM/MINIMUM ELEMENT of this stream according to the provided Comparator."
+         *
+         * Seems to be more similar to:
+         *      - sort using comparator
+         *      - take the first one of sorted list (min)
+         *      - take the last one of sorted list (max)
+         */
     }
 
 }
