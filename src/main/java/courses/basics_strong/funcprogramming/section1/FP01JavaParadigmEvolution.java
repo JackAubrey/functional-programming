@@ -1,5 +1,7 @@
 package courses.basics_strong.funcprogramming.section1;
 
+import courses.basics_strong.funcprogramming.section1.data.MyFunctionalInterface;
+
 public class FP01JavaParadigmEvolution {
     public static void main(String[] args) {
         // Previous Java 8 for example if we need to create a runnable class we need to
@@ -60,7 +62,3 @@ public class FP01JavaParadigmEvolution {
     }
 }
 
-@FunctionalInterface
-interface MyFunctionalInterface {
-    void myMethod();
-}
