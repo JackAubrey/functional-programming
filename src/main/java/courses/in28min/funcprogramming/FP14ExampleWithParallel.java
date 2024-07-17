@@ -1,5 +1,6 @@
 package courses.in28min.funcprogramming;
 
+import courses.in28min.funcprogramming.data.FakePerson;
 import net.datafaker.Faker;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class FP14ExampleWithParallel {
         // Create a huge complex data
         int LOW_VALUE = 1000000;
         int HIGH_VALUE = 30000000;
-        int dataLen = HIGH_VALUE;
+        int dataLen = LOW_VALUE;
         System.out.println("\nInitializing "+dataLen+" Fake Data...");
         List<FakePerson> hugeComplexData = init(dataLen);
         System.out.println(dataLen+" Fake Data generated!");
@@ -54,8 +55,5 @@ public class FP14ExampleWithParallel {
                 )
                 .len(dataLen)
                 .generate();
-    }
-
-    record FakePerson(String firstName, String lastName, String gender, int age) {
     }
 }

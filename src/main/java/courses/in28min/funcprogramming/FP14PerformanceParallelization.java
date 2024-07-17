@@ -1,20 +1,21 @@
 package courses.in28min.funcprogramming;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import courses.in28min.funcprogramming.data.FakePerson;
 import net.datafaker.Faker;
 
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 public class FP14PerformanceParallelization {
+    static final String DATA_FILE_NAME = "FakePersons_data.json";
 
     public static void main(String[] args) {
+        initFile();
+
         // sequential big operation
         execute( () -> {
             Long sumValue = LongStream.range(0, 1000000000).sum();
@@ -39,7 +40,7 @@ public class FP14PerformanceParallelization {
         // Create a huge complex data
         int LOW_VALUE = 1000000;
         int HIGH_VALUE = 30000000;
-        int dataLen = HIGH_VALUE;
+        int dataLen = LOW_VALUE;
         System.out.println("\nInitializing "+dataLen+" Fake Data...");
         List<FakePerson> hugeComplexData = init(dataLen);
         System.out.println(dataLen+" Fake Data generated!");
@@ -103,7 +104,26 @@ public class FP14PerformanceParallelization {
                 .generate();
     }
 
+    static void initFile() {
+        Faker faker = new Faker();
+        ObjectMapper mapper = new ObjectMapper();
+        try(FileWriter writer = new FileWriter(DATA_FILE_NAME)) {
+            List<FakePerson> list = faker.collection(
+                            () -> new FakePerson(
+                                    faker.name().firstName(),
+                                    faker.name().lastName(),
+                                    faker.gender().binaryTypes(),
+                                    faker.number().numberBetween(20, 80))
+                    )
+                    .len(10000)
+                    .generate();
 
-    record FakePerson(String firstName, String lastName, String gender, int age) {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(writer, list);
+
+
+            System.out.println("Data Initialization is Done....");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
