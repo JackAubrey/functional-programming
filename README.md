@@ -15,10 +15,10 @@ A Function is treated like a value. y = f(x)
 
 ### Lambda
 A Lambda is basically a building block of functional programming
-Lamda has no name: Anonymous
-Don't forget that we can only convert lambdas for the interfaces having only one abstract method
+Lambda has no name: Anonymous
+**Don't forget that we can only convert lambdas for the interfaces having only one abstract method.**
 
-For using lambda we must understand one thing that a (stardard) function has four properties:
+For using lambda we must understand one thing that a (standard) function has four properties:
     - first is the name of the function
     - second is parameters list
     - third is body of the function
@@ -173,3 +173,33 @@ Now we are going to use the usage of lambda on the fly
     // we place here the code just as example, but you can put whenever you want in accordion with java rules
     // We are using on the fly a lambda
     onTheFly( () -> System.out.println("Hello On The fly") );
+
+
+### Lambda are Smart
+- Smart anonymous functions they use type inference
+- Dynamic type language. Invoke dynamic functionality.  
+Starting from Java 7, the compiled code is able to invoke "dynamically" some pieces of code.  
+Allows dynamic language to bind symbols at runtime
+- Also, reducing the length of the code, lambdas also help optimize the memory.
+
+### Lambda Benefits
+- Pass Behavior as parameter.   
+We can pass behavior as parameters just like we pass data as parameters.
+- Lambda enables declarative programming.  
+The programmer says what to do rather than how to do. In this way a lot of things can be hidden.
+- Using expressions instead of statement, and thanks the JVM capabilities, the code written using declarative style is thread safe and can actually work fine in multi-threaded environments.
+
+**Note** Functional Programing is a **subset** of Declarative Programming 
+
+### Lambda have
+- List of Parameters
+- An arrow "->" which separates the list of parameters from the body of the lambda function
+- The body of the lambda
+
+**Remember** on the contrary a function have
+- Access Modifier (public, private, etc...)
+- Return Type
+- Name of Function
+- Parameters List and Parameters Type 
+- Method Body
+- Return Statement (if something returns) 
