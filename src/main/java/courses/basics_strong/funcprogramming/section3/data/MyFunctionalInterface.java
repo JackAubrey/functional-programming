@@ -1,4 +1,4 @@
-package courses.basics_strong.funcprogramming.section1.data;
+package courses.basics_strong.funcprogramming.section3.data;
 
 @FunctionalInterface
 public interface MyFunctionalInterface {

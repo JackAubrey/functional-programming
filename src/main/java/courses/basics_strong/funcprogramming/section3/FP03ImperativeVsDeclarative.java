@@ -1,4 +1,4 @@
-package courses.basics_strong.funcprogramming.section1;
+package courses.basics_strong.funcprogramming.section3;
 
 import java.util.stream.IntStream;
 
