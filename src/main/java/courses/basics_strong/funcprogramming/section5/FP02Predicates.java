@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 public class FP02Predicates {
     public static void main(String[] args) {
-        // Predicate signature method is: "boolean test(t t)"
+        // Predicate interface abstract method signature is: "boolean test(T t)"
         // Predicate use "test" to test a condition and return true or false
 
         // We are NOT using here the stream in order to show the Predicate in action
