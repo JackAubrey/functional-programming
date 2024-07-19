@@ -1,9 +1,6 @@
 package courses.in28min.funcprogramming;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class FP10CreateStream_PeekFuncConsideration {
     public static void main(String[] args) {

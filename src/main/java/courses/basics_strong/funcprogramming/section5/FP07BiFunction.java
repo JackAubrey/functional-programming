@@ -1,9 +1,6 @@
 package courses.basics_strong.funcprogramming.section5;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 public class FP07BiFunction {
     public static void main(String[] args) {

@@ -4,11 +4,9 @@ import courses.in28min.funcprogramming.data.Course;
 import courses.in28min.funcprogramming.data.CourseCategory;
 
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class FP12HigherOrderFunctions {
     public static void main(String[] args) {

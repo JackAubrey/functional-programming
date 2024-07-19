@@ -1,6 +1,5 @@
 package courses.in28min.funcprogramming;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class FP07CollectToList {

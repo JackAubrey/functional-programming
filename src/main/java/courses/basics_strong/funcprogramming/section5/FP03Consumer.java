@@ -2,7 +2,6 @@ package courses.basics_strong.funcprogramming.section5;
 
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class FP03Consumer {
     public static void main(String[] args) {

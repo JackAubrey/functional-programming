@@ -1,7 +1,5 @@
 package courses.basics_strong.funcprogramming.section4;
 
-import java.util.function.BiPredicate;
-
 public class PracticeWithLambda {
     public static void main(String[] args) {
         // a simple lambda

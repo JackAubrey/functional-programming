@@ -3,7 +3,6 @@ package courses.in28min.funcprogramming;
 import courses.in28min.funcprogramming.data.Course;
 import courses.in28min.funcprogramming.data.CourseCategory;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
