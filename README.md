@@ -196,10 +196,62 @@ The programmer says what to do rather than how to do. In this way a lot of thing
 - An arrow "->" which separates the list of parameters from the body of the lambda function
 - The body of the lambda
 
-**Remember** on the contrary a function have
+**Remember:** on the contrary a function have
 - Access Modifier (public, private, etc...)
 - Return Type
 - Name of Function
 - Parameters List and Parameters Type 
 - Method Body
 - Return Statement (if something returns) 
+
+### Predefined Java Functional Interfaces
+Java provide us set of predefined Functional Interface each one with its own scope.
+![image info](./imgs/Screenshot_20240719_113338.png "Predefined Java Functional Interfaces")
+- **Predicate**: to test a condition. 
+  - Accept input parameters
+  - Return a boolean
+- **Consumer**: to consume something
+  - Accept input parameters
+  - Return NOTHING
+- **Function**: to accept something and return a resul
+  - Accept input parameters
+  - return a result
+- **Supplier**: to supply a value
+  - No input parameters
+  - return a value
+
+Remember if a functional interface is having reusable signature we don't need to create different functional interfaces having same signature.
+We can reuse it.
+
+    @FunctionalInterface
+    interface SimpleMathOperator {
+        void operate(int a, int b);
+    }
+
+    SimpleMathOperator sum = (a, b) -> a + b;
+    SimpleMathOperator multiply = (a, b) -> a * b;
+
+On that basis java has already provided most general reusable signatures.  
+These are added to **java.util.fun** package.  
+So this function package that contains already defined generic functional interfaces.
+In this provided list, you can see from left to right:
+- The functional interface
+- Its description where "T" and "R" are the generics
+- The primitive specializations.  
+These are used for primitive type: Int, Long and Double.  
+When you have to works with primitive data, use its specialization because are more efficient avoiding the In/Out Boxing usage.
+
+![image info](./imgs/Screenshot_20240719_121243.png "Java Predefined Functional Interfaces list 1")
+
+In this list we can see a first Functional Interface never met before: **UnaryOperator**  
+The UnaryOperator<T> is an extension of Function<T,R> where T and R has same type.  
+It represents an operation on a single operand that produces a result of the same type as its operand.  
+
+The following list show us some other very useful Java Predefined Functional Interfaces.  
+![image info](./imgs/Screenshot_20240719_122534.png "Java Predefined Functional Interfaces list 2")
+- BiFunction<T, U, R> accept two input parameters and return something.
+- BiPredicate<T,R> accept two input parameters and return the boolean test result.
+- BiConsumer<T,R> accept two input parameters and return nothing.
+- BinaryOperator<T> is an extension of BiFunction<T, U, R> where all three types are all the same.
+
+### Functional interfaces: generic syntax
