@@ -207,18 +207,23 @@ The programmer says what to do rather than how to do. In this way a lot of thing
 ### Predefined Java Functional Interfaces
 Java provide us set of predefined Functional Interface each one with its own scope.
 ![image info](./imgs/Screenshot_20240719_113338.png "Predefined Java Functional Interfaces")
-- **Predicate**: to test a condition. 
+- **Predicate**: to test a condition. This is one of most used Functional Interface.
   - Accept input parameters
   - Return a boolean
+  - The Predicate interface abstract method signature is: **boolean test(T var)**
 - **Consumer**: to consume something
   - Accept input parameters
   - Return NOTHING
-- **Function**: to accept something and return a resul
+  - The Consumer interface abstract method signature is: **void accept(T var)**
+- **Function**: to accept something and return a resul.  
+This is one of most used Functional Interface and typically used for transformations.
   - Accept input parameters
   - return a result
+  - The Function interface abstract method signature is: **R apply(T var)**
 - **Supplier**: to supply a value
   - No input parameters
   - return a value
+  - The Supplier interface abstract method signature is: **T get()**
 
 Remember if a functional interface is having reusable signature we don't need to create different functional interfaces having same signature.
 We can reuse it.
@@ -254,4 +259,29 @@ The following list show us some other very useful Java Predefined Functional Int
 - BiConsumer<T,R> accept two input parameters and return nothing.
 - BinaryOperator<T> is an extension of BiFunction<T, U, R> where all three types are all the same.
 
-### Functional interfaces: generic syntax
+### Functional interfaces: Java Generic syntax
+To understand functional interfaces from jdk library you should have a fair knowledge of java generics.  
+
+This is NOT a Functional Generics Interface. **It's a normal Functional Interface** 
+
+    @FunctionalInterface
+    public interface FunctionalInterface {
+        String execute(String s);
+    }
+
+This IS a Functional Generics Interface because we are providing it of Generics.
+
+    @FunctionalInterface
+    public interface FunctionalGenericInterface<T,R> {
+        R execute(T t);
+    }
+
+Both T and R are simply to-uppercase letters used to indicate that we are using Java Generics.  
+Which kind of letter you'll use is not a mandatory. Typically, these are what java library is used to use.
+Let's take look to a couple of examples:
+
+    FunctionalGenericInterface<String, String> fun1 = s -> s.substring(1,5);
+    String substring = fun1.execute("Hello World"); // it will contains "Hello"
+
+    FunctionalGenericInterface<String, Integer> fun2 = s -> s.length();
+    Integer length = fun2.execute("Hello World"); // it will contains "11"
