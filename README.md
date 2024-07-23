@@ -373,6 +373,25 @@ Existing object is an object that we have created in code and is not an input pa
 
 ![image info](./imgs/Screenshot_20240722_124714.png "Class::instanceMethod")
 
+
+### Arbitrary input of Method Reference
+An arbitrary object is the objects that are input to the lambda I am writing.  
+Example:  
+      
+    Lambda : e -> System.out.println(e);
+    Equivalent Method Reference : System.out :: println ;
+
+Both are equivalent and both will need an input argument e at the time of execution.  
+For example, if it's a Consumer:
+
+    Consumer<Integer> c1 = e -> System.out.println(e);
+    Consumer<Integer> c2 = System.out :: println ;
+    c1.accept(2);
+    c2.accept(2); 
+
+Both c1 and c2 implementations are same, and they need an integer e at the time of execution.  
+So, this e (which is 2 here) is the input or arbitrary object I am talking about.
+
 ### Optional
 A null reference can be a ranger if not handled with care.  
 Of a value or object is null any operation on that null reference causes null pointer exception and i would say it is the most occurred.  
@@ -428,3 +447,69 @@ The other object is considered equal if:
   - and either if both the optionals are empty
   - or both contains equal value
 - **hashcode** method returns hash code value
+
+### Functional Programming
+
+![image info](./imgs/Screenshot_20240723_103621.png "Functional Programming Mind Map")
+
+#### Key concepts
+- **functions are first class citizens**  
+In object-oriented programming with variables or with data we can do anything.  
+We can pass them to any function we can get the result into them from any function.  
+In functional programming, functions are first class citizen. A language that considers procedures or functions to be first class allows functions to be passed around just like any other value.  
+This means the language supports passing functions as arguments to other functions.  
+![image info](./imgs/Screenshot_20240723_143518.png "functions are first class citizens")  
+
+- **pure functions**  
+There are two characteristics that decides whether a function is a pure function or not.  
+**When pure function has no side effects and is deterministic, only then it's a pure function!** 
+
+  - A pure function depends only on its input parameters and its internal algorithm.  
+    Hence if you call pure functions with the same set of parameters you will always get the same result.  
+    ![image info](./imgs/Screenshot_20240723_144006.png "Pure Function - 1")
+  - A pure function has no side effects. This means it does not read anything from outside world or write anything to outside world.  
+    It does not read or write from: file, database, web, http calls and so on.
+    It does not change the state of input object or other outside its context.
+  - *A pure function always returns the same output for the same input.*
+  - A pure function accept input and return something.
+    **Note:** The **Consumer<T>** interface method is not a pure function.  
+    Its signature method is:
+
+        void accept(T t)
+
+    As Java documentation says: **"the Consumer is expected to operate via side effects"**.  
+    We can consider this like a special case if it will not hase particular side effects.  
+
+The reason functional programming strives to work with pure functions because they allow:
+- clarity of thought
+- easy to reason about pure functions. Once we have defined we can consider them like black-box you can then use them as building blocks to compute operations of ascending complexity.
+- they will never modify the shared state or variables. Pure Functions can be used fearlessly in multi-thread programs
+
+#### *What a Pure Function should look like*
+No data o object state will be modified by this function.  
+It simply takes input, execute an algorithm and return a result. Nothing else!
+Also for every same input it always return the same output. 
+
+          public int sum(int a, int b) {
+            return a+b;
+          }
+
+#### *THIS ABSOLUTELY NOT a Pure function*
+In this case we haven't anything of Pure Function behaviours.  
+The state of "var" changes, and it is outside of function context, also for evey invocation, given tha same input the output changes.  
+This example has **side effects**
+
+          int var = 0;
+
+          public int add(int a) {
+            var += a;
+            return var;
+          }
+
+Look the "Demo" class in "section8" package to see another detailed example.
+
+- **higher order functions**
+
+#### Other important concepts
+- no side effects
+- referential transparency
