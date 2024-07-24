@@ -60,6 +60,11 @@ public class FP02StaticInstanceMethod {
         BinaryOperator<Integer> binaryOperator = MyMainClass::sum;
         System.out.println("BiFunction sum "+biFunction.apply(3, 5));
         System.out.println("BinaryOperator sum "+binaryOperator.apply(3, 5));
+
+        Function<String, Integer> strLenFunc = String::length;
+        final String str = "BasicStrong";
+        final int strLen = strLenFunc.apply(str);
+        System.out.println("The string ["+str+"] has a length of: "+strLen);
     }
 }
 

@@ -362,13 +362,42 @@ Actually we have 4 type of method reference
 
 - **object::instanceMethod**: to an instance method of an existing object
 - **Class::staticMethod**: to a static method of class
-- **Class::instanceMethod**: to a method of a static instance of class.  
-Like "System.out::println".  
-System dot out returns an object of print string. So it's an existing object, and we're referring to the instance method println on it.  
-Existing object is an object that we have created in code and is not an input parameter to the lambda.
+- **Class::instanceMethod**: to a method of a static instance of class.
+
+  Like "System.out::println".  
+  System dot out returns an object of print string. So it's an existing object, and we're referring to the instance method println on it.  
+  Existing object is an object that we have created in code and is not an input parameter to the lambda.
   - "System" is the class name
   - "out" is a static class attribute of System class
-  - "println" is a method of the class referred by "out" reference. 
+  - "println" is a method of the class referred by "out" reference.  
+
+  Look this other case: we are using the class name referencing to a method (it is not a static method).  
+  
+
+    // this function is referring to the String method "length".
+    //
+    // this is the source code of length method
+    //
+    //    public int length() {
+    //      return this.value.length >> this.coder();
+    //    }
+    //
+    // the signature of this method doesn't look respect the signature of Function<T,R>
+    // it doesn't accept any input. How can it works?
+    // It is able to work because we are referring to the String variable that expose this method.
+    // The "length" method will be invoked on the argument supplied to this function. 
+    // The method is applied on the object itself.
+    // Length is applied on "s" that is not an input argument to the length
+    //
+    Function<String, Integer> strLenFunc = String::length;
+    
+    // this is the same of previous.
+    Function<String, Integer> strLenFuncLambda = s -> s.length();
+
+    final String str = "BasicStrong";
+    final int strLen = strLenFunc.apply(str);
+    System.out.println("The string ["+str+"] has a length of: "+strLen);
+
 - **Class::new**: to refer to a default class constructor
 
 ![image info](./imgs/Screenshot_20240722_124714.png "Class::instanceMethod")
