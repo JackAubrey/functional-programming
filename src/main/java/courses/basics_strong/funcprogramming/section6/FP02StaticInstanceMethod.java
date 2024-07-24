@@ -1,6 +1,5 @@
 package courses.basics_strong.funcprogramming.section6;
 
-import java.util.List;
 import java.util.function.*;
 
 public class FP02StaticInstanceMethod {
@@ -61,10 +60,20 @@ public class FP02StaticInstanceMethod {
         System.out.println("BiFunction sum "+biFunction.apply(3, 5));
         System.out.println("BinaryOperator sum "+binaryOperator.apply(3, 5));
 
-        Function<String, Integer> strLenFunc = String::length;
+        // Look this other special case
+        Function<String, Integer> strLenFuncMethodRef = String::length;
+        Function<String, Integer> strLenFuncLambda = e -> e.length();
+
         final String str = "BasicStrong";
-        final int strLen = strLenFunc.apply(str);
-        System.out.println("The string ["+str+"] has a length of: "+strLen);
+        System.out.println("Using Class Instance Method Reference: The string ["+str+"] has a length of: "+strLenFuncMethodRef.apply(str));
+        System.out.println("Using Lambda: The string ["+str+"] has a length of: "+strLenFuncLambda.apply(str));
+    }
+}
+
+class MyStringTool {
+
+    public int length(String str) {
+        return str.length();
     }
 }
 
