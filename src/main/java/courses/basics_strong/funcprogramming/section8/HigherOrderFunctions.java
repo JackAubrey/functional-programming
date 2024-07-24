@@ -16,7 +16,10 @@ public class HigherOrderFunctions {
         //
         //  1 - IProducer will produce a double number using the Math.random
         //  2 - IConfigurator configure the number taken from IProducer in order to return an Integer
+        //  3 - the invocation on "createFactory" method return an IFactory<Integer> reference.
         IFactory<Integer> intFactory = createFactory( () -> new Random().nextDouble(1, 100), Double::intValue);
+        //  4 - to get the product we have to invoke the create method on it.
+        //      This is the implementation that we are returning for IFactory will get invoked using the two function passed on "createFactory" method.
         System.out.println("Int Factory result: "+intFactory.create());
 
         // 1 - IProducer will produce a Faker
@@ -25,7 +28,7 @@ public class HigherOrderFunctions {
         System.out.println("Name Factory result: "+nameFactory.create());
     }
 
-    static <T, R> IFactory<R> createFactory(IProducer<T> p, IConfigurator<T, R> c)  {
+    static <T, R> IFactory<R> createFactory(IProducer<T> producer, IConfigurator<T, R> configurator)  {
 
         // IFactory doesn't take anything in input
         //      T create()
@@ -37,14 +40,15 @@ public class HigherOrderFunctions {
         //      return new IFactory<T, R>() {
         //            @Override
         //            public R create() {
-        //                T product = p.produce();
-        //                return c.configure(product);
+        //                T product = producer.produce();
+        //                return configurator.configure(product);
         //            }
         //        };
         //
+        // this is the body of function returned
         return () -> {
-            T product = p.produce();
-            return c.configure(product);
+            T product = producer.produce();
+            return configurator.configure(product);
         };
     }
 }
