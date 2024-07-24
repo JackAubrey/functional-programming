@@ -482,16 +482,17 @@ The other object is considered equal if:
 ![image info](./imgs/Screenshot_20240723_103621.png "Functional Programming Mind Map")
 
 #### Key concepts
-- **functions are first class citizens**  
-In object-oriented programming with variables or with data we can do anything.  
-We can pass them to any function we can get the result into them from any function.  
-In functional programming, functions are first class citizen. A language that considers procedures or functions to be first class allows functions to be passed around just like any other value.  
-This means the language supports passing functions as arguments to other functions.  
-![image info](./imgs/Screenshot_20240723_143518.png "functions are first class citizens")  
+- **FUNCTIONS ARE FIRST CLASS CITIZENS**  
+  In object-oriented programming with variables or with data we can do anything.  
+  We can pass them to any function we can get the result into them from any function.  
+  In functional programming, functions are first class citizen. A language that considers procedures or functions to be first class allows functions to be passed around just like any other value.  
+  This means the language supports passing functions as arguments to other functions.  
+  ![image info](./imgs/Screenshot_20240723_143518.png "functions are first class citizens")  
 
-- **pure functions**  
-There are two characteristics that decides whether a function is a pure function or not.  
-**When pure function has no side effects and is deterministic, only then it's a pure function!** 
+
+- **PURE FUNCTIONS**  
+  There are two characteristics that decides whether a function is a pure function or not.  
+  **When pure function has no side effects and is deterministic, only then it's a pure function!** 
 
   - A pure function depends only on its input parameters and its internal algorithm.  
     Hence if you call pure functions with the same set of parameters you will always get the same result.  
@@ -509,24 +510,24 @@ There are two characteristics that decides whether a function is a pure function
     As Java documentation says: **"the Consumer is expected to operate via side effects"**.  
     We can consider this like a special case if it will not hase particular side effects.  
 
-The reason functional programming strives to work with pure functions because they allow:
-- clarity of thought
-- easy to reason about pure functions. Once we have defined we can consider them like black-box you can then use them as building blocks to compute operations of ascending complexity.
-- they will never modify the shared state or variables. Pure Functions can be used fearlessly in multi-thread programs
+  The reason functional programming strives to work with pure functions because they allow:
+  - clarity of thought
+  - easy to reason about pure functions. Once we have defined we can consider them like black-box you can then use them as building blocks to compute operations of ascending complexity.
+  - they will never modify the shared state or variables. Pure Functions can be used fearlessly in multi-thread programs
 
-#### *What a Pure Function should look like*
-No data o object state will be modified by this function.  
-It simply takes input, execute an algorithm and return a result. Nothing else!
-Also for every same input it always return the same output. 
+  #### *What a Pure Function should look like*
+  No data o object state will be modified by this function.  
+  It simply takes input, execute an algorithm and return a result. Nothing else!
+  Also for every same input it always return the same output. 
 
           public int sum(int a, int b) {
             return a+b;
           }
 
-#### *THIS ABSOLUTELY NOT a Pure function*
-In this case we haven't anything of Pure Function behaviours.  
-The state of "var" changes, and it is outside of function context, also for evey invocation, given tha same input the output changes.  
-This example has **side effects**
+  #### *THIS ABSOLUTELY NOT a Pure function*
+  In this case we haven't anything of Pure Function behaviours.  
+  The state of "var" changes, and it is outside of function context, also for evey invocation, given tha same input the output changes.  
+  This example has **side effects**
 
           int var = 0;
 
@@ -535,9 +536,15 @@ This example has **side effects**
             return var;
           }
 
-Look the "Demo" class in "section8" package to see another detailed example.
+  Look the "Demo" class in "section8" package to see another detailed example.
 
-- **higher order functions**
+
+- **HIGHER ORDER FUNCTIONS**  
+  Are functions which either take functions as arguments or return them as output or does both.
+  ![image info](./imgs/Screenshot_20240724_123221.png "Higher Order Functions")
+  They are cornerstone of functional programming.  
+  In java we implement functions using lambda. So we can say a higher order function is a function that takes one or more lambda expression as parameter or return a lambda expression or possibly does both.  
+  
 
 #### Other important concepts
 - no side effects
