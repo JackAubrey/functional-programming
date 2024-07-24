@@ -103,12 +103,12 @@ public class FuncInterface02BehaviorParameterization {
         // for example "compare(false, s -> s.length())"
         // the "s -> s.length()" IS the function passed into the method and performed inside our "comparator"
         public static <String, U> Comparator<String> compare(boolean revert, Function<String, U> func) {
-            // 2 - and we return a Comparator function that accept two strings did a compare and return the result
+            // 2 - and we return a Comparator function that accept two strings and then compare them and return the result
             return (s1, s2) -> {
                 System.out.println("S1 = ["+s1+"] - S2 = ["+s2+"]");
                 // 3 - when the comparator function will invoke with two strings
                 if(revert) {
-                    // 4.1 - we will to apply the comparing using the lambda received in input
+                    // 4.1 - we will be able to apply the comparing using the lambda received in input
                     // REVERTED ORDER
                     return ((Comparable)func.apply(s2)).compareTo(func.apply(s1));
                 } else {
