@@ -1,6 +1,6 @@
 package courses.basics_strong.funcprogramming.section8;
 
-public class Demo {
+public class PureFunctions {
     public static void main(String[] args) {
         // why "add" method is a pure function and "multiply" is not?
         //
