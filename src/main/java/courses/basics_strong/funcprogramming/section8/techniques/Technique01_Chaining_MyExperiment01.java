@@ -36,23 +36,25 @@ public class Technique01_Chaining_MyExperiment01 {
         //          loginDate=2024-07-25
         //      ]
     }
-}
 
-record MyUser(String firstName, String secondName) {}
-record MyAuthUser(MyUser myUser, String authCode) {}
-record MyLoggedUser(MyAuthUser myAuthUser, String loginId, LocalDate loginDate) {}
+    record MyUser(String firstName, String secondName) {}
+    record MyAuthUser(MyUser myUser, String authCode) {}
+    record MyLoggedUser(MyAuthUser myAuthUser, String loginId, LocalDate loginDate) {}
 
-@FunctionalInterface
-interface UserConfigurator<T, R> {
-    R configure(T t);
+    @FunctionalInterface
+    interface UserConfigurator<T, R> {
+        R configure(T t);
 
-    // this method wants an "UserConfigurator<R, V>" where:
-    //  - R is the input and use the result of first function
-    //  - V is the new result
-    // it is a transformation!
-    default <V> UserConfigurator<T, V> andThen(UserConfigurator<R, V> configurator) {
-        Objects.requireNonNull(configurator);
+        // this method wants an "UserConfigurator<R, V>" where:
+        //  - R is the input and use the result of first function
+        //  - V is the new result
+        // it is a transformation!
+        default <V> UserConfigurator<T, V> andThen(UserConfigurator<R, V> configurator) {
+            Objects.requireNonNull(configurator);
 
-        return (T t) -> configurator.configure(this.configure(t));
+            return (T t) -> configurator.configure(this.configure(t));
+        }
+
+
     }
 }
