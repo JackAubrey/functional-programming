@@ -28,11 +28,12 @@ Will use the "default" interface method in order to do something like this:
             }
         }
 
-**Important!!** That snippet is missing of some important things like *"fail fast"*.  
+**Important!!** That snippet is missing of one important thing: *"Fail Fast"*.  
 Fail Fast is the capability to immediately fails if something is not configured correctly.
 Look the example code "Technique01_Chaining" under "section8.techniques" package for more details.
 
 #### Function Composition
+
 #### Closures
 #### Currying
 #### Lazy Evaluation
