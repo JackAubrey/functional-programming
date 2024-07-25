@@ -7,7 +7,7 @@ From java 9 onwards we have default methods in interfaces and APIs take advantag
 #### Function Chaining
 Function Chaining (aka Method Chaining) is a technique where each method returns an object allowing the calls to be chained together in a single statement without requiring variables to store the intermediate results.
 Basically this technique is used to simplify the code when multiple functions are applied in a row.  
-When we chain function, the first one get executed and then will get executed the second one and so on.  
+When we chain function, the first one get executed and then will get executed the second one on the result of the first one and so on.  
 The chain will be triggered when we'll call the function abstract method.
 
         obj.func1().func2().func3()....funAbstractMethod()
