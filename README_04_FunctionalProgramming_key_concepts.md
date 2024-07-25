@@ -95,7 +95,8 @@
         - x = (2 * 4) + 7
         - x = 7 + (2 * 2 * 2)
         - x = 7 + (8)
-          In functional programming the referential transparency means: **"That a function call can be replaced by its value or another referentially transparent call with the same result just like the math example."**
+
+      In functional programming the referential transparency means: **"That a function call can be replaced by its value or another referentially transparent call with the same result just like the math example."**
         - **"Pure Functions"** are always referential transparency. The opposite in not necessary true.
         - Functional style avoid such methods which are not referentially transparent.
         - Referential Transparency makes reasoning about programs easier.
