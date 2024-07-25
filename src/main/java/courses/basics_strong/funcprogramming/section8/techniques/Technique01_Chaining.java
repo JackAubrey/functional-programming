@@ -1,9 +1,8 @@
 package courses.basics_strong.funcprogramming.section8.techniques;
 
-import courses.basics_strong.funcprogramming.section8.techniques.fi.ConsumerWithChain;
 import courses.basics_strong.funcprogramming.section8.techniques.fi.ConsumerBasic;
+import courses.basics_strong.funcprogramming.section8.techniques.fi.ConsumerWithChain;
 import courses.basics_strong.funcprogramming.section8.techniques.fi.ConsumerWithChainAndFailFast;
-import courses.basics_strong.funcprogramming.section8.techniques.fi.MyStrangeFunction;
 
 public class Technique01_Chaining {
     public static void main(String[] args) {
@@ -67,16 +66,5 @@ public class Technique01_Chaining {
         } catch(NullPointerException e) {
             System.err.println("Yes! Now the Null Pointer Exception is risen IMMEDIATELY. ConsumerWithChainAndFailFast is fail fast");
         }
-
-
-        // This is another sample case used to show the chaining of functions that returns something
-        MyStrangeFunction<String, String, String, Integer> myFun1 = (s1, s2, s3) -> (s1+s2+s3).length();
-        MyStrangeFunction<String, String, Integer, Integer> myFun2 = (s1, s2, i) -> (s1+s2).length()+i;
-        MyStrangeFunction<String, String, String, Integer> myFun = myFun1.andThen(myFun2);
-
-        // myFun1 > ( "abc" + "def" + "ghi" ).length = 9
-        // myFun2 > ( "abc" + "def" ).length + 9 = 15
-        int result = myFun.apply("abc", "def", "ghi");
-        System.out.println(result);
     }
 }
