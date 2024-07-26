@@ -41,6 +41,15 @@ When we compose two functions will get execute as first the last one and its ret
         a.compose(b)
 
 #### Closures
+Definition: A Closure is a function that refers to free variables in its lexical context.  
+In this definition:
+- the "function" is a block of code that may produce a result
+- the "free variables" are identifiers used but not defined by the closure
+- the "lexical context" (or lexical scope) is a convention that sets the scope of a variable may only be called from within the block of code in which it is defined.
+
+In java when we pass a function to another we will have to deal with closures.  
+For an example about this theme with more details, look the code: "Technique03_Closure" inside "section8.techniques" package
+
 #### Currying
 #### Lazy Evaluation
 #### Tail Call Optimization
