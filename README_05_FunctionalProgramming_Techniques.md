@@ -35,6 +35,10 @@ Fail Fast is the capability to immediately fails if something is not configured 
 Look the example code "Technique01_Chaining" under "section8.techniques" package for more details.
 
 #### Function Composition
+The Composition essentially is the opposite of Chaining.  
+When we compose two functions will get execute as first the last one and its returns passed to the previous one.
+
+        a.compose(b)
 
 #### Closures
 #### Currying
