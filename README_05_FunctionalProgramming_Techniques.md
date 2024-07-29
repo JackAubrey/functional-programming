@@ -64,3 +64,24 @@ It's also very useful to delaying the creation of heavyweight objects.
 Lazy evaluation basically says computing resources by avoiding unneeded computations.
 
 #### Tail Call Optimization (aka TCO)
+Tail Call Optimization or Tail Call Recursion differ to a regular recursive call.  
+In a regular recursive call each previous call waits for the value to be returned by the next call so that it can perform further operation of that return value with the value it is holding.  
+Using a TCO we're not having any further operation to perform on the value returned by the next call.  
+Looking to "Technique04_TailCallOptimization" on "section8.techniques" package we can see these two concepts.
+- in case of **regular recursion** it keeps holding on to the stack because there are further operations to be performed.
+  So when the input is large such recursion can result to stack overflow error.
+- in case of **tail recursion** we are having an accumulator to store the product in it.
+  It's not holding on to the stack for the operations and that's why *compiler can convert a tail recursion into pure iteration* and that is called tail call optimization.
+
+        Tail Recursion => Pure Iteration
+        Non-Tail Recursion !=> Pure Iteration
+
+The capability to convert from tail recursion into pure iteration during each call permit to have only one frame shown in the stack.
+Converting a regular recursive call to iteration is not possible! Compilers can't do it.  
+That's why one should go for tail call approach wherever possible.  
+**Unfortunately some compilers don't support tail call optimization and java compiler is one of them**  
+It can't convert recursive calls in an iteration so at compiler level we don't have this benefit, but we use recursion in functional programming a lot because we play with functions a lot.  
+So it's very important to understand that functions inside functions should be used carefully to prevent stack overflow error.  
+**So! We use our intelligence while writing recursive functions in a way that they do not result to a lot of space in the stack.  
+In Java wherever possible first we should try to go for iterative approach**
+

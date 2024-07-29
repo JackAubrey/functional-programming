@@ -1,7 +1,5 @@
 package courses.basics_strong.funcprogramming.section8.techniques;
 
-import net.datafaker.Faker;
-
 import java.util.function.Function;
 
 public class Technique04_Currying {
