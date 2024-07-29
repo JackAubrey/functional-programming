@@ -51,5 +51,9 @@ In java when we pass a function to another we will have to deal with closures.
 For an example about this theme with more details, look the code: "Technique03_Closure" inside "section8.techniques" package
 
 #### Currying
+Currying is a technique which basically restructures a multi-parameter function into multiple functions having single parameter each.
+![image info](./imgs/Screenshot_20240726_161417.png "Currying")
+For an example about this theme with more details, look the code: "Technique04_Currying" inside "section8.techniques" package
+
 #### Lazy Evaluation
 #### Tail Call Optimization
