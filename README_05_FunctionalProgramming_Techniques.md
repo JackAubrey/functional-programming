@@ -85,3 +85,5 @@ So it's very important to understand that functions inside functions should be u
 **So! We use our intelligence while writing recursive functions in a way that they do not result to a lot of space in the stack.  
 In Java wherever possible first we should try to go for iterative approach**
 
+
+![image info](./imgs/Screenshot_20240729_123534.png "Section Mind Map")
