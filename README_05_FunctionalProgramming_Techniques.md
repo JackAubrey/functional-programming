@@ -56,4 +56,11 @@ Currying is a technique which basically restructures a multi-parameter function 
 For an example about this theme with more details, look the code: "Technique04_Currying" inside "section8.techniques" package
 
 #### Lazy Evaluation
-#### Tail Call Optimization
+We already met many times during this course.  
+When we write a lambda passing it to a reference we notice that this lambda is not executed until something triggers.  
+Lazy evaluation is an evaluation strategy which delays the evaluation of an expression until the value is needed.  
+We can take advantage of this behavior to delay or to even avoid method invocation or evaluation of an expression because some values might never be needed or some expressions are never needed to be evaluated depending on some conditions.  
+It's also very useful to delaying the creation of heavyweight objects.  
+Lazy evaluation basically says computing resources by avoiding unneeded computations.
+
+#### Tail Call Optimization (aka TCO)
