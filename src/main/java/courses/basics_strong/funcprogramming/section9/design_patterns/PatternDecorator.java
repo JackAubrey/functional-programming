@@ -2,24 +2,18 @@ package courses.basics_strong.funcprogramming.section9.design_patterns;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * This is my own implementation. Is not taken from the course because I'm not agree with their example.
+ * Also this example shown the usage of Fluent Interfaces
  */
 public class PatternDecorator {
     public static void main(String[] args) {
-        Function<Burger, Burger> decorator = b -> b;
-        Function<Burger, Burger> ingredients = b -> b.setIngredients(List.of("salad", "tomato"));
-        Function<Burger, Burger> meat = b -> b.setMeatType(Burger.MeatType.Pork);
-        Function<Burger, Burger> bread = b -> b.setBreadType(Burger.BreadType.Wholemeal);
+        Function<Burger, Burger> ingredients = b -> b.withIngredients(List.of("salad", "tomato", "tuna sauce"));
+        Function<Burger, Burger> meat = b -> b.withMeatType(Burger.MeatType.Chicken);
+        Function<Burger, Burger> bread = b -> b.withBreadType(Burger.BreadType.Soy);
 
-        Burger burger = decorator
-                .andThen(ingredients)
-                .andThen(meat)
-                .andThen(bread)
-                .apply(new Burger());
-
+        Burger burger = Burger.prepare(ingredients.andThen(meat).andThen(bread));
         System.out.println(burger);
     }
 
@@ -38,27 +32,42 @@ class Burger {
     private List<String> ingredients = List.of("salad", "tomato", "mustard", "ketchup", "cheese");
     private BreadType breadType = BreadType.Wheat;
 
-    public Burger() {
-
+    /**
+     * is private because the building of object is delegate to the "prepare" static method
+     */
+    private Burger() {
     }
 
-    public Burger(MeatType meatType) {
+    /**
+     * is private because is used by the "withXXXX" methods.
+     * All this "withXXXX" methods returns a new instance in order to respect the "no input object state should be changed"
+     * @param meatType
+     * @param ingredients
+     * @param breadType
+     */
+    private Burger(MeatType meatType, List<String> ingredients, BreadType breadType) {
         this.meatType = meatType;
-    }
-
-    public Burger setBreadType(BreadType breadType) {
-        this.breadType = breadType;
-        return this;
-    }
-
-    public Burger setMeatType(MeatType meatType) {
-        this.meatType = meatType;
-        return this;
-    }
-
-    public Burger setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
-        return this;
+        this.breadType = breadType;
+    }
+
+    public Burger withBreadType(BreadType breadType) {
+        this.breadType = breadType;
+        return new Burger(this.meatType, this.ingredients, this.breadType);
+    }
+
+    public Burger withMeatType(MeatType meatType) {
+        this.meatType = meatType;
+        return new Burger(this.meatType, this.ingredients, this.breadType);
+    }
+
+    public Burger withIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
+        return new Burger(this.meatType, this.ingredients, this.breadType);
+    }
+
+    public static Burger prepare(Function<Burger, Burger> function) {
+        return function.apply(new Burger());
     }
 
     @Override

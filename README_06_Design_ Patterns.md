@@ -36,3 +36,10 @@ Look the examples into "section9.design_patterns" package.
   ![image info](./imgs/Screenshot_20240730_104552.png "Decorator Design Pattern")
   ![image info](./imgs/Screenshot_20240730_123138.png "Decorator Design Pattern")
   ![image info](./imgs/Screenshot_20240730_124807.png "Decorator Design Pattern")
+
+- **Fluent Interfaces**
+  Is a way of implementation by which we get easy readable and flowing interface.  
+  ![image info](./imgs/Screenshot_20240730_150032.png "Fluent Interfaces")
+  Using this pattern code can get more readable nearly as human language.  
+  This pattern is not from gang of four design patterns, but it's a very important pattern if we look to functional programming.
+  An example of the usage of this concept is shown in "PatternDecorator" class into "section9.design_patterns" package
