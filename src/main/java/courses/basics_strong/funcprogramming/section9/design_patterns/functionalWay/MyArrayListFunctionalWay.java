@@ -1,4 +1,4 @@
-package courses.basics_strong.funcprogramming.section9.design_patterns.data.functionalway;
+package courses.basics_strong.funcprogramming.section9.design_patterns.functionalWay;
 
 import java.util.function.Consumer;
 

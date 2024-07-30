@@ -1,12 +1,12 @@
-package courses.basics_strong.funcprogramming.section9.design_patterns.data.oldway;
+package courses.basics_strong.funcprogramming.section9.design_patterns.imperativeWay;
 
 import java.util.Iterator;
 
-public class MyArrayListOldWay implements Iterable<Object> {
+public class MyArrayListImperativeWay implements Iterable<Object> {
     private static final int BUF_SIZE = 10;
     private Object [] elements = new Object [BUF_SIZE];
 
-    public MyArrayListOldWay(Object[] elements) {
+    public MyArrayListImperativeWay(Object[] elements) {
         this.elements = elements;
     }
 
