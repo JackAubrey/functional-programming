@@ -42,4 +42,13 @@ Look the examples into "section9.design_patterns" package.
   ![image info](./imgs/Screenshot_20240730_150032.png "Fluent Interfaces")
   Using this pattern code can get more readable nearly as human language.  
   This pattern is not from gang of four design patterns, but it's a very important pattern if we look to functional programming.
-  An example of the usage of this concept is shown in "PatternDecorator" class into "section9.design_patterns" package
+  An example of the usage of this concept is shown in "PatternDecorator" class into "section9.design_patterns" package.
+
+- **Factory Method Pattern**
+  It is a creation pattern. Creation patterns are focused on how objects are created and the factory pattern is about creating objects without exposing the actual instantiation logic.  
+  Client knows nothing about it even the type of the object that is going to be created is not known to the client.
+  A typical JDK example is the Calendar.
+
+      Calendar calendar = Calendar.getInstance();
+  ![image info](./imgs/Screenshot_20240730_154519.png "Factory Method Pattern")
+  ![image info](./imgs/Screenshot_20240730_154605.png "Factory Method Pattern")
