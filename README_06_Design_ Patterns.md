@@ -44,11 +44,27 @@ Look the examples into "section9.design_patterns" package.
   This pattern is not from gang of four design patterns, but it's a very important pattern if we look to functional programming.
   An example of the usage of this concept is shown in "PatternDecorator" class into "section9.design_patterns" package.
 
-- **Factory Method Pattern**
+- **Factory Design Pattern**
+  ![image info](./imgs/Screenshot_20240731_111901.png "Factory Design Pattern")
+  Simply means we can create object without exposing the creation logic to the client.
+  ![image info](./imgs/Screenshot_20240731_112034.png "Factory Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_112304.png "Factory Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_115421.png "Factory Design Pattern")
+
+- **Factory Method Design Pattern**
   It is a creation pattern. Creation patterns are focused on how objects are created and the factory pattern is about creating objects without exposing the actual instantiation logic.  
   Client knows nothing about it even the type of the object that is going to be created is not known to the client.
   A typical JDK example is the Calendar.
 
       Calendar calendar = Calendar.getInstance();
-  ![image info](./imgs/Screenshot_20240730_154519.png "Factory Method Pattern")
-  ![image info](./imgs/Screenshot_20240730_154605.png "Factory Method Pattern")
+  ![image info](./imgs/Screenshot_20240730_154519.png "Factory Method Design Pattern")
+  ![image info](./imgs/Screenshot_20240730_154605.png "Factory Method Design Pattern")
+
+- **Builder Design Pattern**
+  Builder pattern is all about providing flexibility in object creation.  
+  It's a flexible solution to various complex object creation problems.  
+  By complex we mean a lot of arguments to a constructor or a lot of setters, and we also ensure the immutability of the object after its creation.
+  ![image info](./imgs/Screenshot_20240731_102951.png "Builder Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_103334.png "Builder Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_120025.png "Builder Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_122409.png "Builder Design Pattern")
