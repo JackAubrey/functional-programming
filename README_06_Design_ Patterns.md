@@ -68,3 +68,13 @@ Look the examples into "section9.design_patterns" package.
   ![image info](./imgs/Screenshot_20240731_103334.png "Builder Design Pattern")
   ![image info](./imgs/Screenshot_20240731_120025.png "Builder Design Pattern")
   ![image info](./imgs/Screenshot_20240731_122409.png "Builder Design Pattern")
+
+- **Command Design Pattern**
+  Is a behavioral design pattern which is about encapsulating a request as an object.  
+  In this pattern we write code that sequences and executes methods based on runtime decisions, or we can say commands.  
+  For example all the implementations of runnable interface like creating thread by implementing runnable so each implementation that we give to runnable is a different command on which the methods of runnable gets executed.  
+  ![image info](./imgs/Screenshot_20240731_143535.png "Command Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_143600.png "Command Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_150036.png "Command Design Pattern example UML diagram")
+  ![image info](./imgs/Screenshot_20240731_151224.png "Command Design Pattern")
+  ![image info](./imgs/Screenshot_20240731_152326.png "Command Design Pattern")
