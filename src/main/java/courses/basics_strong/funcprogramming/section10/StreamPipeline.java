@@ -1,17 +1,14 @@
 package courses.basics_strong.funcprogramming.section10;
 
 import courses.basics_strong.funcprogramming.section10.data.Book;
-import courses.basics_strong.funcprogramming.section10.data.BookBuilder;
-import net.datafaker.Faker;
 
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class StreamPipeline {
+public class StreamPipeline extends AbstractStreamBase {
     public static void main(String[] args) {
+        // NOTE
+        // the "createBookList" create random data. Sometimes you should run this code in order to see a result
         List<Book> books = createBookList();
 
         // This is a Stream Pipeline
@@ -45,24 +42,5 @@ public class StreamPipeline {
         // Given the stream with FILTERED BY RATING data we are going to collect the final result into another List.
         List<Book> finalResult = ratingStream.toList(); // or .collect(Collectors.toList());
         System.out.println("Final Result: "+finalResult);
-    }
-
-    // this method create random data. sometimes you should run this code in order to see a result
-    private static List<Book> createBookList(){
-        Faker faker = new Faker();
-        var bookFaker = faker.book();
-        return IntStream.rangeClosed(1, 100)
-                .mapToObj( i -> toBook(bookFaker))
-                .toList();
-    }
-
-    private static Book toBook(net.datafaker.providers.base.Book bookFaker) {
-        return new BookBuilder()
-                .setAuthor(bookFaker.author())
-                .setGenre(bookFaker.genre())
-                .setPrice(new Random().nextDouble(5, 35))
-                .setRating( (short) new Random().nextInt(1, 5))
-                .setTitle(bookFaker.title())
-                .createBook();
     }
 }
