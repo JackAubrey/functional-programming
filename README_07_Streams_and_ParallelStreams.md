@@ -36,11 +36,14 @@ What we are able to perform on Stream is: read data, make an **operation that re
 
 ![image info](./imgs/Schermata_20240801_141903.png "Stream are not data Containers")
 
-### Streams API | Intermediate Operations | Filter
-A typical Intermediate Operations provided by the Stream is the Filter.
-Filter take the streamed item, apply the predicate logic we provided and if the predicate is satisfied it returns all that items that has satisfied our predicate in a new Stream.
+### Streams API | Intermediate Operations | FILTER
+A typical Intermediate Operations provided by the Stream API is the Filter.
+Filter receive an item from the stream, apply the predicate logic we provided and if the predicate is satisfied it returns in a new Stream.
+Filter is the functional equivalent of the "if" statement
 
-![image info](./imgs/Schermata_20240801_143215.png "Stream API | Intermediate Operations | Filter")
+    Stream<T> filter(Predicate<T> predicate);
+
+Let's see an example!
 
     Predicate<Integer> evenPredicate = i -> i%2 == 0;
 
@@ -61,4 +64,37 @@ Filter take the streamed item, apply the predicate logic we provided and if the 
     // [2, 4, 6, 8, 10]
     System.out.println(listByPredicateRef);
     // [2, 4, 6, 8, 10]
+
+### Streams API | Intermediate Operations | MAP
+Another typical Intermediate Operations provided by the Stream is the map.  
+Map use the functional interface Function<T,U> that which one take a value and return a new one.
+It is another major used Stream method API. Very used to transform data from a type to another, to map a data against another and so on.
+Again, every data returned by the "map" function will return as a new Stream.
+
+#### **FUNDAMENTAL:** never change the state of the object received in input. Everytime returns a new one! Otherwise, we might get **concurrent modification exception** at runtime.
+#### Moreover, we should try to avoid changing the state of an object when using functional programming
+
+    <R> Stream<R> map(Function<T, R> mapper);
+
+Let's see an example!
+
+    Function<Integer, String> intToString = i -> "A String of "+i;
+
+    List<String> listByLambdaPredicate = Stream.of(1,2,3,4,5,6,7,8,9,10)
+          .map( i -> "A String of "+i) // our lambda that implements the Predicate
+          .toList();
+
+    List<String> listByPredicateRef = Stream.of(1,2,3,4,5,6,7,8,9,10)
+          .map( intToString) // our Predicate directly applyed
+          .toList();
+
+    // you'll see the same result.
+    // 
+    // Map wants a Function<T,R>
+    // A function accept a data, apply a logic and returns a result
+    //
+    System.out.println(listByLambdaPredicate);
+    // [A String of 1, A String of 2, A String of 3, A String of 4, A String of 5, A String of 6, A String of 7, A String of 8, A String of 9, A String of 10]
+    System.out.println(listByPredicateRef);
+    // [A String of 1, A String of 2, A String of 3, A String of 4, A String of 5, A String of 6, A String of 7, A String of 8, A String of 9, A String of 10]
 
