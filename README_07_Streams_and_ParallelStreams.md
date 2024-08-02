@@ -116,17 +116,44 @@ These kind of Stream expose in their API other useful functions like: average, m
 From a Stream we can easily pass to a PrimitiveStream using the appropriated mapper.
 ![image info](./imgs/Schermata_20240802_142100.png "Primitive Streams")
 In contrast, starting from a Primitive Stream we can obtain a Stream of object in two manner:
-- using the method "boxed()" that returns a Stream of same type of the Primitive Stream.  
-  for example from an IntStream using the method "boxed()" we'll obtain a Stream<Integer>  
-      Stream<Integer> intStream = IntStream.of(1,2,3)
-                                      .boxed();
+- Using the method "boxed()" that returns a Stream of same type of the Primitive Stream.  
+  For example from an IntStream using the method "boxed()" we'll obtain a Stream<Integer>  
+          
+      Stream<Integer> intStream = IntStream.of(1,2,3).boxed();
 
-- using the method "mapToObject(DoubleFunction<U> mapper)" we are able to convert a Double to any arbitrary object we want.  
-  for example:
+- Using the method "mapToObject(DoubleFunction<T> mapper)" we are able to convert a Double to any arbitrary object we want.  
+  For example:
+    
       DoubleFunction<String> doubleToStringMapper = (d) -> ""+d;
       Stream<String> strStream = doubleStream.mapToObj( doubleToStringMapper );
 
-    
+### Primitive Streams Methods
+As we said, the primitive streams extends the stream API with a lot of useful methods, thought to works with the numbers, like "average", "min", "max" and so on!
+- **"sum()"** is a terminal operation that returns the sum of values present into the stream.  
+  If the primitive stream is empty, it returns ZERO
+
+      int    intSum = IntStream.of(1,2,3).sum(); // 6
+      double doubleSum = DoubleStream.of(1.1, 2.2, 3.3).sum(); // 6.6
+      long   emptyLongSum = LongStream.of().sum() // 0
+
+- **"max()"** is a terminal operation that returns a primitive optional representation of maximum value present into the stream.  
+  Why it returns an Optional? Because could have negative values and for this reason the maximum can not be zero and this function must return an optional of empty
+
+      OptionalInt max = IntStream.of(3,1,7,9,3,5).max(); // OptionalInt[9]
+
+- **"min()"** is a terminal operation that returns a primitive optional representation of minimum value present into the stream.  
+  
+      OptionalInt min = IntStream.of(3,1,7,9,3,5).min(); // OptionalInt[1]
+
+- **"average()"** is a terminal operation that returns an optional double of the average value present into the stream. Note In this case will always get an OptionalDouble because we are calling an average.
+
+      OptionalDouble average = IntStream.of(3, 1, 7, 9, 3, 5).average(); // OptionalDouble[4.666666666666667]
+
+- **"summaryStatistics"** is very useful terminal operation to calculate: sum, average, min, max and count in one row.
+
+      IntSummaryStatistics intSummaryStatistics = IntStream.of(3, 1, 7, 9, 3, 5).summaryStatistics();
+      // IntSummaryStatistics{count=6, sum=28, min=1, average=4,666667, max=9}
+
 ### Streams API | Intermediate Operations | FILTER
 A typical Intermediate Operations provided by the Stream API is the Filter.
 Filter receive an item from the stream, apply the predicate logic we provided and if the predicate is satisfied it returns in a new Stream.
