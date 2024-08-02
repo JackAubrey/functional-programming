@@ -36,6 +36,48 @@ What we are able to perform on Stream is: read data, make an **operation that re
 
 ![image info](./imgs/Schermata_20240801_141903.png "Stream are not data Containers")
 
+### Streams are Lazy
+As we already said, stream are lazy. We saw what terminal operations are we so what intermediate operations. We have already just encountered some of these.  
+All the intermediate operations are lazy!  
+Like a simple declaration, they will be executed only when the stream will be triggered against a terminal operation.  
+Only the terminal operations are eager.
+
+    // look this example
+    Stream.of(1,2,3,4,5)
+          // "peek" is used only to debug, peek the current value from the stream without consuming it
+          .peek( n -> System.out.println("N before filter = "+n) )
+          .filter( n -> n%2 == 0)
+          // "peek" is used only to debug, peek the current value from the stream without consuming it
+          .peek( n -> System.out.println("N before map= "+n) )
+          .map(n -> ""+n);
+
+    // if you try to execute this code, nothing happens because its only a declaration od the stream pipeline.
+    // neither the filter, neither the map will be executed and also the "peek" function.
+    //
+    // if we would assign that code to a reference we should:
+    Stream<String> stream = Stream.of(1,2,3,4,5)
+          .peek( n -> System.out.println("N before filter = "+n) )
+          .filter( n -> n%2 == 0)
+          .peek( n -> System.out.println("N before map= "+n) )
+          // map take an Integer a produce a String
+          // this is why the final stream has "String" as type
+          .map(n -> ""+n);
+
+    // Now triggering the Stream using one of terminal operations like "reduce", "collect" and so on
+    List<String> list = stream.toList();
+    System.out.println(list);
+
+    // in this case and only in this case the pipeline will be execute producing this output
+    // N before filter = 1
+    // N before filter = 2
+    // N before map= 2
+    // N before filter = 3
+    // N before filter = 4
+    // N before map= 4
+    // N before filter = 5
+    // [2, 4]
+    
+
 ### Streams API | Intermediate Operations | FILTER
 A typical Intermediate Operations provided by the Stream API is the Filter.
 Filter receive an item from the stream, apply the predicate logic we provided and if the predicate is satisfied it returns in a new Stream.
@@ -146,4 +188,3 @@ Let's see an example!
     // A = [55], B = [10]
     // 65
 
-    
