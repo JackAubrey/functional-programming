@@ -76,8 +76,57 @@ Only the terminal operations are eager.
     // N before map= 4
     // N before filter = 5
     // [2, 4]
-    
 
+### Primitive Streams
+Stream has some specialization for the primitive types: Integer, Long and Double.
+This specialization is an optimization to prevent the Boxing/Unboxing the wast resources and performance.  
+When you have to works with these kind of primitive type, use this kind of stream or the function provided by them.  
+We have IntStream, LongStream  that are thought for treat primitive types.  
+But also stream expose api like "mapToInt" and so on that give us the opportunity to pass from a generic type stream to a dedicate e more efficient stream.  
+Look this code:
+
+    // We are declaring a DoubleStream
+    DoubleStream doubleStream = DoubleStream.of(2.2, 4.65, 11.0, 23.345);
+    Stream<Double> streamOfDouble = Stream.of(2.2, 4.65, 11.0, 23.345);
+
+    // now we print the references
+    System.out.println("1 - The DoubleStream reference type is: "+doubleStream);
+    System.out.println("2 - The Stream<Double> reference type is: "+streamOfDouble);
+
+    // Pay attention to the type of streams printed
+    // 1 - The DoubleStream reference type is: java.util.stream.DoublePipeline
+    // 2 - The Stream<Double> reference type is: java.util.stream.ReferencePipeline
+
+    // Now what happens if we do this?
+    DoubleStream ds1 = streamOfDouble.mapToDouble(Double::valueOf);
+    System.out.println("3 - The DoubleStream obtained from Stream<Double> reference type is: "+ds1);
+
+    // We will obtain: a "ReferencePipeline" despite the code being back a "DoubleStream".
+    // 3 - The DoubleStream obtained from Stream<Double> reference type is: java.util.stream.ReferencePipeline
+
+    // Don't warry, the "ReferencePipeline" is the basic of all stream.
+    // Try to test the instance reference
+    ds1 instanceof DoubleStream
+    // it return true
+    
+    // try the same with "streamOfDouble", you'll see an error. 
+
+These kind of Stream expose in their API other useful functions like: average, min, max and so on.
+
+From a Stream we can easily pass to a PrimitiveStream using the appropriated mapper.
+![image info](./imgs/Schermata_20240802_142100.png "Primitive Streams")
+In contrast, starting from a Primitive Stream we can obtain a Stream of object in two manner:
+- using the method "boxed()" that returns a Stream of same type of the Primitive Stream.  
+  for example from an IntStream using the method "boxed()" we'll obtain a Stream<Integer>  
+      Stream<Integer> intStream = IntStream.of(1,2,3)
+                                      .boxed();
+
+- using the method "mapToObject(DoubleFunction<U> mapper)" we are able to convert a Double to any arbitrary object we want.  
+  for example:
+      DoubleFunction<String> doubleToStringMapper = (d) -> ""+d;
+      Stream<String> strStream = doubleStream.mapToObj( doubleToStringMapper );
+
+    
 ### Streams API | Intermediate Operations | FILTER
 A typical Intermediate Operations provided by the Stream API is the Filter.
 Filter receive an item from the stream, apply the predicate logic we provided and if the predicate is satisfied it returns in a new Stream.
