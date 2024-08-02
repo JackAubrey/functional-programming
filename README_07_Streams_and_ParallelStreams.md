@@ -98,3 +98,52 @@ Let's see an example!
     System.out.println(listByPredicateRef);
     // [A String of 1, A String of 2, A String of 3, A String of 4, A String of 5, A String of 6, A String of 7, A String of 8, A String of 9, A String of 10]
 
+### Streams API | Intermediate Operations | REDUCE
+Many times we need to perform operations where a stream reduces to single resultant value.  
+*Reducing is the repeated process of combining all the elements.*  
+![image info](./imgs/Schermata_20240802_111157.png "Reduce API")
+Let's see the "reduce" API.  
+- The first parameter "identity" is used to set the initial value and also identify the final result type. It has no effect during the accumulation operation.
+- The second parameter "accumulator" is used to accumulate values during the final process. Remember the **Tail Call Optimization (aka TCO)** concept treated in "Functional Programming Techniques".
+
+
+    T reduce(<T> identity, BinaryOperator accumulator)
+
+Let's see an example!
+
+    // Remember
+    //
+    // 1 - The BinaryOperator<T> is a BinaryFunction<T,U,R> where all the input and output have all the same type
+    // 2 - An accumulator is based on TCO technique where every single iteration produce a result without waiting the previous. In this case.
+    //      - first iteration  a = Identity Value,  b = first stream value       and return a + b
+    //      - second iteration a = previous result, b = the second stream value  and return a + b
+    //      - last condition return a
+    BinaryOperator<Integer> accumulator = (a,b) -> a+b;
+
+    Integer sum1 = Stream.of(1,2,3,4,5,6,7,8,9,10)
+          .reduce(0, accumulator);
+    System.out.println(sum1); // will print 55
+
+    // now we are going to demostrate the usage of the "Identity" and how the accumulator works.
+    Integer sum2 = Stream.of(1,2,3,4,5,6,7,8,9,10)
+          // this is the equivalent code of the "accumulator" but for each iteration print the input parameters "a" and "b"
+          .reduce(10, (a,b) -> {
+              System.out.println("A = ["+a+"], B = ["+b+"]");
+              return a+b;
+          });
+    System.out.println(sum2);
+
+    // this is what will be produced into the console
+    // A = [10], B = [1]
+    // A = [11], B = [2]
+    // A = [13], B = [3]
+    // A = [16], B = [4]
+    // A = [20], B = [5]
+    // A = [25], B = [6]
+    // A = [31], B = [7]
+    // A = [38], B = [8]
+    // A = [46], B = [9]
+    // A = [55], B = [10]
+    // 65
+
+    
