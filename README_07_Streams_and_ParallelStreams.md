@@ -264,3 +264,50 @@ Let's see an example!
     // A = [55], B = [10]
     // 65
 
+### Bounded Streams
+We can produce a bounded streams in several ways.
+
+- **From a Collection:**
+
+      Stream<Integer> streamOfInteger = List.of(1,2,3).stream();
+      Stream<Integer> streamOfInteger = Set.of(1,2,3).stream();
+
+- **From a Map:** Note! Since a map is made by a key-pair values we can not directly invoke the "stream" method.
+
+      Map<Integer, String> map = Map.of(1, "One", 2, "Two", 3, "Three");
+      
+      // we are going to get a stream of map Key-Value entry
+      Stream<Map.Entry<Integer, String>> entriesStream = map.entrySet().stream();
+      // we are going to get a stream only made by the map keys
+      Stream<Integer> keysStream = map.keySet().stream();
+      // we are going to get a stream only made by the map values
+      Stream<String> valuesStream = map.values().stream();
+
+- **From an Array:**
+
+      String [] strArray = {"One", "Two", "Three"};
+      Stream<String> strStream = Arrays.stream(strArray);
+
+      // a little note about the difference from when we use primitive and when we use their wrapper
+      int [] intArray = {1,2,3,4};
+      Integer [] integerArray = {1,2,3,4};
+
+      // look the type of stream returned
+      IntStream intStream = Arrays.stream(intArray);
+      Stream<Integer> integerStream = Arrays.stream(integerArray);
+
+- **Using the Stream static method "Of":**
+
+      Stream<String> stream = Stream.of("One", "Two", "Three");
+
+- **Using the Stream builder:** This very versatile because permit us to build a stream programmatically.
+
+      Stream.Builder<String> strStreamBuilder = Stream.<String>builder();
+
+      if( condition ) {
+          strStreamBuilder.add("Red");
+      } else {
+          strStreamBuilder.add("Black");
+      }
+
+      Stream<String> builtStream = strStreamBuilder.build();
