@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public abstract class AbstractStreamBase {
     private static Random random = new Random();
@@ -16,8 +17,8 @@ public abstract class AbstractStreamBase {
     static List<Book> createBookList(){
         Faker faker = new Faker();
         var bookFaker = faker.book();
-        return IntStream.rangeClosed(1, 100)
-                .mapToObj( i -> toBook(bookFaker))
+        return Stream.generate( () -> toBook(bookFaker))
+                .limit(200)
                 .toList();
     }
 

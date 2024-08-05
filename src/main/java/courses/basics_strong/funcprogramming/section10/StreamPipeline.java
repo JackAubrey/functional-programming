@@ -10,6 +10,7 @@ public class StreamPipeline extends AbstractStreamBase {
         // NOTE
         // the "createBookList" create random data. Sometimes you should run this code in order to see a result
         List<Book> books = createBookList();
+        System.out.println("Generated "+books.size()+" random books");
 
         // This is a Stream Pipeline
         List<Book> popularBooks = books.stream() // Source
