@@ -311,3 +311,41 @@ We can produce a bounded streams in several ways.
       }
 
       Stream<String> builtStream = strStreamBuilder.build();
+
+### Unbounded Streams (aka Infinite Streams)
+Unlike the bounded stream where we have a length of it, with infinite stream we haven't this limit.  
+In order to achieve this we have several ways.  
+- **Iterate**
+  The Stream class offer the static method "iterate" that wants a seed and a unary operator.  
+  We can also have this capability using primitive Streams.
+
+      - <T> Stream<T> iterate(final T seed, final UnaryOperator<T> f)
+      - IntStream iterate(final int seed, final IntUnaryOperator f)
+      - LongStream iterate(final long seed, final LongUnaryOperator f)
+      - DoubleStream iterate(final double seed, final DoubleUnaryOperator f)
+
+  The "seed" is the first initial value and define th type of data.
+  The "UnaryOperator" at the first time use the seed as initial value and return a new value that will be used in the next iteration.  
+  A little example:
+
+      Stream.iterate(0, i -> i - 1)
+            .limit(15) // is used to give a limit in this case.
+            .forEach(System.out::println)
+
+  ![image info](./imgs/Schermata_20240805_111750.png "Unbounded Stream")
+
+- **Generate**
+  Another static method provided by the Stream class is "generate" that simply wants a supplier.  
+  As the "iterate", this method is provided also by the primitive streams.
+
+      - <T> Stream<T> generate(Supplier<? extends T> s)
+      - IntStream generate(IntSupplier s)
+      - LongStream generate(LongSupplier s)
+      - DoubleStream generate(DoubleSupplier s)
+
+  A little example:
+
+      AtomicInteger intGen = new AtomicInteger(1);
+      Stream.generate( () -> intGen.incrementAndGet() )
+            .limit(15) // is used to give a limit in this case.
+            .forEach(System.out::println)
