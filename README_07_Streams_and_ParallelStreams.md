@@ -264,6 +264,15 @@ Let's see an example!
     // A = [55], B = [10]
     // 65
 
+### Streams API | Intermediate Operations | FLATMAP
+The FlatMap operation permit to combine two or more streams in a single stream.  
+We can use it also to combine two or more collections.  
+Take a look to "StreamFlatMap" into the "basics_strong.funcprogramming.section10" package for some examples.
+
+![image info](./imgs/Schermata_20240805_144157.png "Flatmap API")
+![image info](./imgs/Schermata_20240805_154244.png "Flatmap API")
+![image info](./imgs/Schermata_20240805_154312.png "Flatmap API")
+
 ### Bounded Streams
 We can produce a bounded streams in several ways.
 
