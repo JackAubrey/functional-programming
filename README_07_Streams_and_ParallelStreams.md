@@ -358,3 +358,31 @@ In order to achieve this we have several ways.
       Stream.generate( () -> intGen.incrementAndGet() )
             .limit(15) // is used to give a limit in this case.
             .forEach(System.out::println)
+
+### Parallel Streams
+Modern computers are multicore processors so our programs can be designed in a way so that they can take advantage of multicore processing.  
+This means more resources work simultaneously and streams can do that job.  
+Is designed for the speed and easily provided us simply using "stream().parallel()" or "parallelStream()" on a collection or to a Stream.  
+
+![image info](./imgs/Schermata_20240805_162106.png "Parallel Stream")
+
+Deciding whether we should go parallel or not is not easy because going parallel is very expensive.  
+Parallelism comes with some implications like outcome after the processing should be same as sequential processing.  
+Applying parallel operation on some data we need to **keep in mind that the stream should be:**
+- **stateless**
+- **non-interfering** that is the data source should not get affected during the operation
+- **associative** that is one operation result should not get affected by the order of data under processing  
+
+Moreover, the parallel streams are built on top of fork join framework which is a multi-threaded framework so we should not have any synchronization or visibility issues.  
+However these issues can be avoided easily if we are not changing the state of an object throughout the pipeline.  
+
+#### **BEWARE to use the parallel.**
+Parallel processing may be beneficial to fully utilize multiple cores.
+But we also need to consider the overhead of managing:
+- multiple threads
+- memory locality
+- splitting the source
+- merging the results.
+
+**ALSO! WE PAY ATTENTION TO UNDESIRED SIDE EFFECT.**  
+Take a look to the example "FP14_BEWARE_TO_PARALLEL" and "FP14PerformanceParallelization" into "courses.in28min.funcprogramming" package.
