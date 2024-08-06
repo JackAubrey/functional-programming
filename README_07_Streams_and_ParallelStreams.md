@@ -387,3 +387,13 @@ But we also need to consider the overhead of managing:
 **ALSO! WE PAY ATTENTION TO UNDESIRED SIDE EFFECT.**  
 Take a look to the example "FP14_BEWARE_TO_PARALLEL" and "FP14PerformanceParallelization" into "courses.in28min.funcprogramming" package.
 Also! Take a look to the example "StreamParallelOperationPerfTest" into "basics_strong.funcprogramming.section10" package
+
+### **Stateless and stateful operations**
+- **Stateless operations** are performed one by one on the stream elements and *do not need any kind of outside information*
+- **Stateful operation** is one which *uses outside information*
+
+See the example "StatelessStatefulOp" into "basics_strong.funcprogramming.section10" package
+This image refers to the example.
+![image info](./imgs/Schermata_20240806_120623.png "Stateless and stateful operations")
+When we need to works with parallel stream we should avoid the usage of stateful intermediate operations.  
+Always see the JavaDoc reference to check if the intermediate operations are stateful.
