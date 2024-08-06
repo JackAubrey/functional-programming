@@ -9,8 +9,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class StreamParallelOperationPerfTest {
-    public static final String BLOCK = "## ##############################################";
-
     public static void main(String[] args) {
         List<Integer> testDataLengths = List.of(1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000);
         List<TestType> tests = new ArrayList<>(testDataLengths.size() * 10);
@@ -25,8 +23,6 @@ public class StreamParallelOperationPerfTest {
             testMap(dataLen, hugeComplexData, tests);
             testGrouping(dataLen, hugeComplexData, tests);
         }
-
-        //tests.forEach(System.out::println);
 
         tests.stream()
                 .collect(Collectors.groupingBy(e -> e.name, Collectors.groupingBy(e -> e.dataLen, Collectors.groupingBy(e -> e.sequential))))
@@ -124,9 +120,4 @@ public class StreamParallelOperationPerfTest {
     record TestResult<T>(T result, long timeElapsed) {}
 
     record TestType(String name, boolean sequential, int dataLen, TestResult<?> result) {}
-}
-
-@FunctionalInterface
-interface Executable {
-    void execute();
 }
