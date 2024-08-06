@@ -397,3 +397,53 @@ This image refers to the example.
 ![image info](./imgs/Schermata_20240806_120623.png "Stateless and stateful operations")
 When we need to works with parallel stream we should avoid the usage of stateful intermediate operations.  
 Always see the JavaDoc reference to check if the intermediate operations are stateful.
+
+### **Setting Parallelism**
+All the parallel stream use a common thread pool called ForkJoin thread pool and provided by the JDK itself.
+
+![image info](./imgs/Schermata_20240806_144455.png "Setting Parallelism")
+
+As shown in the picture, the Fork Join will try to use all the available processors by default, but we can control this common pool by setting a property:
+
+      "java.util.concurrent.ForkJoinPool.common.parallelism"
+
+Let's see how to do it:
+
+      System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "2");
+      int numProcessorUsedByForkJoin = ForkJoinPool.getCommonPoolParallelism();
+
+* **Note - 1** After the invocation of "ForkJoinPool.getCommonPoolParallelism()" the Fork-Join factory has been created, and we are no longer able to change it.
+* **Note - 2** If we didn't change the system property about the parallelism of Fork-Join, the invocation of "ForkJoinPool.getCommonPoolParallelism()" will get us as result "NumberOfCores-1". This because one thread is reserved to the main thread.
+* **Note - 3** Use this feature to set how many cores our application is able to use wisely.
+* **Note - 4** We are able to set number of thread greater than number of processors but that is something which can cause performance overhead so better to take a bit of care while deciding.
+* **What is the criteria to decide the number of threads**
+  * if the job is computational intensive cpu bound, where we have a lot of calculations or logics to perform should be less than or equal to number of cores.  
+    *Numbers of Threads <= Numbers of Cores*
+  * if the job is IO intensive or IO bound, like any file operation any database operation any http call, the application is sleeping half the time so to leverage the cpu we can create more threads. Creating more threads at a time usually helps but after some point they start causing performance degradation. So pay attention!!  
+    Then number of threads can be greater than number of cores.  
+    *Numbers of Threads > Numbers of Cores*
+
+We are able to create our own Fork-Join pool to execute tasks.
+
+      // we create a new Fork-Join poll
+      ForkJoinPool pool = new ForkJoinPool(NUM_OF_PROCESSOR_WE_WOULD_USE);
+      
+      // now we are able to submit tasks.
+      // NOTE when we are speaking of something that involves threads almost all methods need to be placed in a try-catch block
+      // 
+      // we have several ways to submit a task
+      <T> ForkJoinTask<T> submit(ForkJoinTask<T> task)
+      <T> ForkJoinTask<T> submit(Callable<T> task)
+      <T> ForkJoinTask<T> submit(Runnable task, T result)
+      ForkJoinTask<?> submit(Runnable task);
+
+      // the easiest way is use the Callable or Runnable
+      // Callable functional interface doesn't want anithing as input and returns a result.
+      Callable<Integer> callable = (i) -> 1;
+      ForkJoinTask<Integer> submit = pool.submit(callable);
+      submit.get();
+
+      // or in a more straight way
+      pool.submit( () -> {
+        // my function body
+      }).get();
