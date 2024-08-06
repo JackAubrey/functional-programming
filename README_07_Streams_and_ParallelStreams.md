@@ -386,3 +386,4 @@ But we also need to consider the overhead of managing:
 
 **ALSO! WE PAY ATTENTION TO UNDESIRED SIDE EFFECT.**  
 Take a look to the example "FP14_BEWARE_TO_PARALLEL" and "FP14PerformanceParallelization" into "courses.in28min.funcprogramming" package.
+Also! Take a look to the example "StreamParallelOperationPerfTest" into "basics_strong.funcprogramming.section10" package
