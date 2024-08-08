@@ -20,8 +20,9 @@ public class CustomSpliterator2 {
         ScannerSpliterator scannerSpliterator = new ScannerSpliterator();
         Stream<BookModel> streamBooksByScanner = StreamSupport.stream(scannerSpliterator, false);
 
+        System.out.println("Type !q to exit");
         streamBooksByScanner
-                .limit(2) // we want to limit to 2 book
+                .limit(5) // we want to limit to 5 book
                 .forEach(System.out::println);
     }
 }
@@ -32,22 +33,22 @@ class ScannerSpliterator implements Spliterator<BookModel> {
     @Override
     public boolean tryAdvance(Consumer<? super BookModel> action) {
         BookModelBuilder bookBuilder = new BookModelBuilder();
-        boolean success = true;
 
         // Like we did in "CustomSpliterator" example
         // we are going to read data via our "next" method that works similar to the already seen in that example: "spliteratorBase.tryAdvance"
         // this method wants a "fieldName" that will print and a Consumer.
         // the java Scanner will read a line from the console and its value will pass to the consumer
-        success &= next("Title", title -> bookBuilder.setTitle(title));
-        success &= next("Author", author -> bookBuilder.setAuthor(author));
-        success &= next("Genre", genre -> bookBuilder.setGenre(genre));
-        success &= next("Rating", rating -> bookBuilder.setRating(Double.valueOf(rating)));
-
-        if(success) {
-            action.accept(bookBuilder.createBook());
+        //
+        // unlike we did on "CustomSpliterator" example, we use the "if" statement because we want immediately break the spliterator whe the user write "!q"
+        if( next("Title", title -> bookBuilder.setTitle(title)) &&
+            next("Author", author -> bookBuilder.setAuthor(author)) &&
+            next("Genre", genre -> bookBuilder.setGenre(genre)) &&
+            next("Rating", rating -> bookBuilder.setRating(Double.valueOf(rating)) ) ) {
+                action.accept(bookBuilder.createBook());
+                return true;
+        } else {
+            return false;
         }
-
-        return success;
     }
 
     @Override
@@ -71,7 +72,12 @@ class ScannerSpliterator implements Spliterator<BookModel> {
         try {
             System.out.print(field+" = ");
             String nextValue = scanner.nextLine();
-            action.accept(nextValue);
+
+            if("!q".equalsIgnoreCase(nextValue)) {
+                success = false;
+            } else {
+                action.accept(nextValue);
+            }
         } catch (Exception e) {
             success = false;
             e.printStackTrace();
