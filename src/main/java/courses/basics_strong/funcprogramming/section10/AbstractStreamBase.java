@@ -1,13 +1,12 @@
 package courses.basics_strong.funcprogramming.section10;
 
-import courses.basics_strong.funcprogramming.section10.data.Book;
-import courses.basics_strong.funcprogramming.section10.data.BookBuilder;
+import courses.basics_strong.funcprogramming.section10.model.Book;
+import courses.basics_strong.funcprogramming.section10.model.BookBuilder;
 import net.datafaker.Faker;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public abstract class AbstractStreamBase {

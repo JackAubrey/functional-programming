@@ -1,6 +1,6 @@
 package courses.basics_strong.funcprogramming.section3;
 
-import courses.basics_strong.funcprogramming.section3.data.MyFunctionalInterface;
+import courses.basics_strong.funcprogramming.section3.fi.MyFunctionalInterface;
 
 public class FP01JavaParadigmEvolution {
     public static void main(String[] args) {

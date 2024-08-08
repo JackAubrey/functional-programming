@@ -1,6 +1,6 @@
 package courses.basics_strong.funcprogramming.section9.design_patterns;
 
-import courses.basics_strong.funcprogramming.section9.design_patterns.data.Stock;
+import courses.basics_strong.funcprogramming.section9.design_patterns.model.Stock;
 import courses.basics_strong.funcprogramming.section9.design_patterns.functionalWay.StockFiltersFunctionalWay;
 import courses.basics_strong.funcprogramming.section9.design_patterns.imperativeWay.StockFiltersImperativeWay;
 

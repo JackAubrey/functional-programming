@@ -1,6 +1,6 @@
 package courses.basics_strong.funcprogramming.section10;
 
-import courses.basics_strong.funcprogramming.section10.data.Book;
+import courses.basics_strong.funcprogramming.section10.model.Book;
 
 import java.util.List;
 import java.util.stream.Stream;

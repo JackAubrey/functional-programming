@@ -1,4 +1,4 @@
-package courses.basics_strong.funcprogramming.section9.design_patterns.data;
+package courses.basics_strong.funcprogramming.section9.design_patterns.model;
 
 public class Stock {
     private String symbol;

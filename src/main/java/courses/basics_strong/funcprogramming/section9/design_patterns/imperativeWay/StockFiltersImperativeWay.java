@@ -1,6 +1,6 @@
 package courses.basics_strong.funcprogramming.section9.design_patterns.imperativeWay;
 
-import courses.basics_strong.funcprogramming.section9.design_patterns.data.Stock;
+import courses.basics_strong.funcprogramming.section9.design_patterns.model.Stock;
 
 import java.util.ArrayList;
 import java.util.List;

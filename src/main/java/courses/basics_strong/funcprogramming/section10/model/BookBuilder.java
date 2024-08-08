@@ -1,4 +1,4 @@
-package courses.basics_strong.funcprogramming.section10.data;
+package courses.basics_strong.funcprogramming.section10.model;
 
 public class BookBuilder {
     private String title;

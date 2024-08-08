@@ -1,6 +1,6 @@
 package courses.basics_strong.funcprogramming.section10;
 
-import courses.basics_strong.funcprogramming.section10.data.DummyPerson;
+import courses.basics_strong.funcprogramming.section10.model.DummyPerson;
 import net.datafaker.Faker;
 
 import java.util.ArrayList;

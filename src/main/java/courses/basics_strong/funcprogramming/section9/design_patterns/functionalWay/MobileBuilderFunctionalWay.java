@@ -1,6 +1,6 @@
 package courses.basics_strong.funcprogramming.section9.design_patterns.functionalWay;
 
-import courses.basics_strong.funcprogramming.section9.design_patterns.data.Mobile;
+import courses.basics_strong.funcprogramming.section9.design_patterns.model.Mobile;
 
 import java.util.function.Consumer;
 

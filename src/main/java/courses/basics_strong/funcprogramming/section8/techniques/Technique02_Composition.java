@@ -1,7 +1,7 @@
 package courses.basics_strong.funcprogramming.section8.techniques;
 
 import com.ibm.icu.text.RuleBasedNumberFormat;
-import courses.basics_strong.funcprogramming.section8.techniques.beans.Square;
+import courses.basics_strong.funcprogramming.section8.techniques.model.Square;
 import courses.basics_strong.funcprogramming.section8.techniques.fi.IFunction;
 
 import java.math.BigDecimal;
