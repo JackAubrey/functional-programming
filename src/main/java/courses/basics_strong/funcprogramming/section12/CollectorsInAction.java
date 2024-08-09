@@ -108,7 +108,7 @@ public class CollectorsInAction {
                                 Collectors.groupingBy(Employee::getDesignation))
                 );
         print("Employee grouped by gender and designation", groupedByGenderAndDesignation.entrySet().stream());
-        // this example starts from the previous but, also we want map the final list taking only the employ name
+        // this example is similar to the previous one but, also we want map the final list taking only the employ name
         Map<Character, Map<String, List<String>>> groupedByGenderAndDesignationNameOnly = employees.stream()
                 .collect(
                         Collectors.groupingBy(
@@ -120,6 +120,139 @@ public class CollectorsInAction {
                         )
                 );
         print("Employee NameOnly grouped by gender and designation", groupedByGenderAndDesignationNameOnly.entrySet().stream());
+
+        // let's go to present another capability of the Collectors util class.
+        // This class is not able even to return a Collector of collection or map
+        // but also to joining data to a single result.
+        String names = employees.stream()
+                .map(Employee::getName)
+                .collect(Collectors.joining(", "));
+        System.out.println("Employee names comma separated"+names);
+
+        // We already saw some Cascading Collectors in action used as Downstream
+        // Now we are look others
+        //
+        // We want to aggregate employees by designation and count how many for each designation
+        Map<String, Long> designationCount = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "counting" items downstream collector.
+                                Collectors.counting()
+                        )
+                );
+        print("Employee Designation count", designationCount.entrySet().stream());
+        // Now we want to find the total fund that is being distributed among each designation
+        Map<String, Double> designationSalarySum = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "summing as double" downstream collector.
+                                Collectors.summingDouble(Employee::getSalary)
+                        )
+                );
+        print("Employee Designation salary sum", designationSalarySum.entrySet().stream());
+        // Similar to the previous one but in this case we want the average salary by designation
+        Map<String, Double> designationSalaryAverage = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "averaging as double" downstream collector.
+                                Collectors.averagingDouble(Employee::getSalary)
+                        )
+                );
+        print("Employee Designation salary sum", designationSalaryAverage.entrySet().stream());
+        // now we want max salary for each designation
+        Map<String, Optional<Employee>> employeeDesignationMaxSalary = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "max salary" downstream collector.
+                                Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))
+                        )
+                );
+        print("Employee Designation max salary", employeeDesignationMaxSalary.entrySet().stream());
+        // now we want min salary for each designation
+        Map<String, Optional<Employee>> employeeDesignationMinSalary = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "min salary" downstream collector.
+                                Collectors.minBy(Comparator.comparingDouble(Employee::getSalary))
+                        )
+                );
+        print("Employee Designation min salary", employeeDesignationMinSalary.entrySet().stream());
+        // again similar to the maxy example, but we want only the value and not all the employee item
+        // how to achieve this? Using the mapping functions provided by the Collectors utility class
+        Map<String, Optional<Double>> designationMaxSalary = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "map" downstream collector. The first Level of downstream
+                                Collectors.mapping(
+                                        // the mapper used by "map" downstream collector
+                                        Employee::getSalary,
+                                        // we provide the nested "max" downstream collector. The second Level of downstream
+                                        Collectors.maxBy(Comparator.comparingDouble(e -> e))
+                                )
+                        )
+                );
+        print("Designation max salary", designationMaxSalary.entrySet().stream());
+
+        // Given the previous example, if we want min and max in one row?
+        // In order to achieve this we can use the summarizing function.
+        Map<String, DoubleSummaryStatistics> designationSummary = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "map" downstream collector. The first Level of downstream
+                                Collectors.mapping(
+                                        // the mapper used by "map" downstream collector
+                                        Employee::getSalary,
+                                        // we provide the nested "max" downstream collector. The second Level of downstream
+                                        Collectors.summarizingDouble(e -> e)
+                                )
+                        )
+                );
+        print("Designation salary summary", designationSummary.entrySet().stream());
+        // Similar to the previous example, if we want min and max in one row but just this two values?
+        // In order to achieve this we can use the "collectingAndThen" function in combination with summarizing function .
+        Map<String, String> designationMinMaxSummary = employees.stream()
+                .collect(
+                        // This the Terminal Analogue Operations used to group
+                        Collectors.groupingBy(
+                                // Its classifier function
+                                Employee::getDesignation,
+                                // the "map" downstream collector. The first Level of downstream
+                                Collectors.mapping(
+                                        // the mapper used by "map" downstream collector
+                                        Employee::getSalary,
+                                        // again another downstream. The second Level of downstream
+                                        Collectors.collectingAndThen(
+                                                // we provide the nested "max" downstream collector. The third Level of downstream
+                                                Collectors.summarizingDouble(e -> e),
+                                                // this is the finisher function
+                                                // which we use to transform DoubleSummaryStatistics into a String with only min and max
+                                                s -> "Max = " + s.getMax() + " - Min = " + s.getMin()
+                                        )
+                                )
+                        )
+                );
+        print("Designation salary min and max", designationMinMaxSummary.entrySet().stream());
     }
 
     static void print(String title, Stream<?> stream) {
