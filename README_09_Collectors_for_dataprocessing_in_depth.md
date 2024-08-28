@@ -259,7 +259,7 @@ Now we know the capability to create nested operations. Take a look to some of t
               Collectors.mapping(
                   // the mapper used by "map" downstream collector
                   Employee::getSalary,
-                  // we provide the nested "max" downstream collector. The second Level of downstream
+                  // we provide the nested "summarizing" downstream collector. The second Level of downstream
                   Collectors.summarizingDouble(e -> e)
               )
           )
@@ -282,7 +282,7 @@ Now we know the capability to create nested operations. Take a look to some of t
                       Employee::getSalary,
                       // again another downstream. The second Level of downstream
                       Collectors.collectingAndThen(
-                          // we provide the nested "max" downstream collector. The third Level of downstream
+                          // we provide the nested "summarizing" downstream collector. The third Level of downstream
                           Collectors.summarizingDouble(e -> e),
                           // this is the finisher function 
                           // which we use to transform DoubleSummaryStatistics into a String with only min and max
@@ -291,3 +291,5 @@ Now we know the capability to create nested operations. Take a look to some of t
                   )
           )
       );
+
+#### Custom Collectors
