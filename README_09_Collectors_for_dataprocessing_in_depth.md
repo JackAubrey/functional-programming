@@ -292,4 +292,13 @@ Now we know the capability to create nested operations. Take a look to some of t
           )
       );
 
-#### Custom Collectors
+### Custom Collectors
+![image info](./imgs/Schermata_20240829_095907.png "Mind Map")
+
+#### How Collectors work internally
+Collector is an interface that expose 5 methods. We will not need to implement these.  
+Collectors util class offer a static method that returns a ready to use implementation of this interface called "CollectorImpl".
+Excepts "characteristics()" methods all the rests are all Higher Order Functions and implemented by CollectorImpl class.
+![image info](./imgs/Schermata_20240829_100505.png "Mind Map")
+
+
