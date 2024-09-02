@@ -33,4 +33,15 @@ A Functional data structure is always:
 Keep in mind data must be immutables. Every time we add or update a list we need to create a new list
 ![image info](./imgs/Schermata_20240829_152541.png "List")
 
-See LinkedListDemo on "courses.basics_strong.funcprogramming.section15" package
+See ListDemo on "courses.basics_strong.funcprogramming.section15" package.
+
+### Functional Data Structures | Queue
+![image info](./imgs/Schermata_20240830_163232.png "Queue")
+
+Since the traversing operation is expensive we are going to implements an optimization:
+![image info](./imgs/Schermata_20240830_163401.png "Queue Optimization")
+![image info](./imgs/Schermata_20240902_143912.png "Queue Front Rear Enqueue")
+![image info](./imgs/Schermata_20240902_144055.png "Queue Front Rear Enqueue")
+![image info](./imgs/Schermata_20240902_144442.png "Queue Front Rear Dequeue")
+
+See QueueDemo on "courses.basics_strong.funcprogramming.section15" package.
