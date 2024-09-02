@@ -1,4 +1,6 @@
 ## Data Structures Functional Ways
+![image info](./imgs/Schermata_20240902_164844.png "Mind Map")
+
 We are used to use Data Structures like List, Queue, Stack, Tree etc.  
 Also we are used to hear these are "Language Independent" but is true only in imperative scope.
 
@@ -55,3 +57,8 @@ It is very similar to our List implementation with main difference, now we ha a 
 ![image info](./imgs/Schermata_20240902_161930.png "Tree")
 
 See TreeDemo on "courses.basics_strong.funcprogramming.section15" package.
+
+### Functional Data Structures | Map
+![image info](./imgs/Schermata_20240902_163232.png "Map")
+
+See MapDemo on "courses.basics_strong.funcprogramming.section15" package.
