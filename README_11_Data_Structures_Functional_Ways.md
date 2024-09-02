@@ -45,3 +45,13 @@ Since the traversing operation is expensive we are going to implements an optimi
 ![image info](./imgs/Schermata_20240902_144442.png "Queue Front Rear Dequeue")
 
 See QueueDemo on "courses.basics_strong.funcprogramming.section15" package.
+
+### Functional Data Structures | Tree
+![image info](./imgs/Schermata_20240902_153446.png "Tree")
+
+It is very similar to our List implementation with main difference, now we ha a left and right.
+![image info](./imgs/Schermata_20240902_153556.png "Tree")
+![image info](./imgs/Schermata_20240902_160358.png "Tree")
+![image info](./imgs/Schermata_20240902_161930.png "Tree")
+
+See TreeDemo on "courses.basics_strong.funcprogramming.section15" package.
