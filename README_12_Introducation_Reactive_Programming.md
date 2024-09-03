@@ -52,7 +52,22 @@ Whenever a Subject (aka Observable) is ready to emit the data or emits the data,
 ![image info](./imgs/Schermata_20240903_153418.png "Observer Design Pattern Sequence Diagram")
 Take a look to ObserverDesignPatternDemo on "courses.basics_strong.reactive.section16" package.
 
-### Concurrency and Parallel Programming
+### Concurrency vs Parallel Programming
+Concurrency and Parallel programming looks like very similar, but actually they are very different.  
+- **Concurrency** is to run multiple parts of the program in single CPU by using different threads.  
+  By doing concurrency we achieve responsiveness. CPUs can tune the threads internally by applying various algorithms like time slicing, and give every thread a chance to execute.  
+  This is how single cpu is able to provide responsiveness.  
+  So concurrency is when more than one task can start run and complete in overlapping time periods.  
+  It doesn't necessarily mean they'll be running at the same instant, it's multitasking on a single core machine.
+  ![image info](./imgs/Schermata_20240903_163450.png "Concurrency")
+- **Parallel** is when tasks literally run at same time for example on a multicore processor.  
+  The task gets split up to be processed by different cores or CPU.  
+  After completion all the partial results are merged to get a single result or if all the tasks are independent then they simply run on different cpus and then completes.
+  ![image info](./imgs/Schermata_20240903_163908.png "Parallel")
+
+In Java, we are able to create multiple thread to achieve multi-threading, and we can use "fork-join" pool for parallel programming but using javas core programming it's not easy to achieve these both.  
+RXJava provides a better abstraction to achieve this. It provides us the schedulers and better support for concurrency and parallelism to make the life easier by doing heavy lifting under the hood.
+
 
 ### RxJava Big Picture
 
