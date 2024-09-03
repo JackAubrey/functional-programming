@@ -1,9 +1,9 @@
 ## Reactive Programming
 
 ### Introduction
-Before the introduction of Java RX developers were not doing reactive programming.  
+Before the introduction of RXJava developers were not doing reactive programming.  
 We are going to see what problem does it solve.  
-Despite systems were ready to reactive programming, there wasn't standard, and it was hard to implements. Java Rx offer a framework to implement achieve reactive programming in a more easy way relieve the programmers from the reactive programming details.   
+Despite systems were ready to reactive programming, there wasn't standard, and it was hard to implements. RXJava offer a framework to implement achieve reactive programming in a more easy way relieve the programmers from the reactive programming details.   
 ![image info](./imgs/Schermata_20240903_102636.png "Mind Map")
 
 ### Reactive Manifesto
@@ -36,6 +36,7 @@ As this is like a go-to statement and difficult to trace where the program point
 This is called a callback hell. RXJava solves this problem by working on observer design pattern.
 
 ### Push vs Pull
+
 
 ### Observer Design Pattern
 
