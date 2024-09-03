@@ -70,5 +70,25 @@ RXJava provides a better abstraction to achieve this. It provides us the schedul
 
 
 ### RxJava Big Picture
+RXJava works on observer design pattern and:
+- **Push** rather than pull.
+  - It is push based, we can push the events to the observers different event like data error and complete signal.
+  - This achieves asynchronous behavior easily as this is a kind of callback.
+- **Different Channels** RXJava uses different channels for different signals like data channel on complete signal channel and error signal channel to make our application more resilient as the error is treated as a separate channel.
+- **Operators** RXJava uses operators for processing and combining events.  
+  Using operators we can achieve parallelism easily
+- **Scheduler** to support parallel programming RXJava uses a different kind to schedulers like IO intensive computation-intensive.  
+  It does all the heavy lifting of parallel programming and enable us to focus on our business logic.
+- **BackPressure** RXJava is backpressure ready to control producer-consumer problem.  
+  If producer is producing at high speed so that consumer is not able to consume all the items at that speed or vice versa, RXJava can handle that condition using backpressure techniques.
+
+![image info](./imgs/Schermata_20240903_170932.png "RxJava Big Picture")
 
 ### RxJava Reactive Streams
+RXJava is library made by Netflix and on time we are writing we will see the 3.x version.  
+Reactive Streams are set of interfaces and Java says that if the API implements these interfaces and the TCK (Technology Compatibility Kit) which is reactive stream's technology the API becomes compatible and reactive.  
+*This API uses flowable instead of observables.*   
+RXJava was there even before reactive stream specifications came it uses observable, but it also implemented flowable to make itself interoperable.  
+*Java 9 also implements TCK, and it's having flowable api for reactive programming.*  
+There are many reactive APIs available, for example you can use reactor core as well so you can use any implementation of TCK that you like.  
+**Note that only difference** between flowable and RXJava's very own observable is that flowable is back pressure ready and observable is not but RXJava also.
