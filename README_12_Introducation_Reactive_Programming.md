@@ -26,7 +26,7 @@ It says to meet modern demands and to exceed users expectations a system should 
 By definition asynchronous in computer programming refers to the occurrence of events independent of the main program flow and the ways to deal with such events.  
 Asynchronous is achieved by concurrency in programming when you run your program in main thread and some other thread might be working in background for you and join the main program when done.  
 To achieve this without RxJava you should implement CallBacks that are is easy to program but hard to manage when they increase.  
-A CallBack is simultaneously running process having handle of the calling program which can be used later to pass the completion signal at later point of time when the process is complete.
+A CallBack is simultaneously running process having handle of the calling program which can be used later to pass the completion signal at later point of time when the process is complete.  
 ![image info](./imgs/Schermata_20240903_112422.png "Async CallBacks")
 
 ### The Hell of CallBack
@@ -36,7 +36,9 @@ As this is like a go-to statement and difficult to trace where the program point
 This is called a callback hell. RXJava solves this problem by working on observer design pattern.
 
 ### Push vs Pull
-
+In general most loved programming model is request response model which is a pull based mechanism where a server sends back the response after processing the request.  
+**In RXJava everything is push based** however we can achieve push mechanism from CallBacks but RXJava makes it very simple using **observables**.  
+Take a look to CallBackPushDemo on "courses.basics_strong.reactive.section16" package.
 
 ### Observer Design Pattern
 
