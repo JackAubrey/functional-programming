@@ -41,6 +41,16 @@ In general most loved programming model is request response model which is a pul
 Take a look to CallBackPushDemo on "courses.basics_strong.reactive.section16" package.
 
 ### Observer Design Pattern
+In this design pattern we have a Subject (aka Observable) which is responsible to maintain a list of all its dependent object known as Observers.  
+Observer design pattern defines one too many dependencies between objects, when one object changes its state all of its dependent objects get notified or updated automatically.  
+![image info](./imgs/Schermata_20240903_151022.png "Observer Design Pattern")
+![image info](./imgs/Schermata_20240903_151724.png "Observer Design Pattern example")
+
+In RXJava when a Subject (aka Observable) state changes emits events or data.  
+Whenever a Subject (aka Observable) is ready to emit the data or emits the data, the observer gets the data so this is how RXJava is using this pattern.  
+![image info](./imgs/Schermata_20240903_153204.png "Observer Design Pattern UML")
+![image info](./imgs/Schermata_20240903_153418.png "Observer Design Pattern Sequence Diagram")
+Take a look to ObserverDesignPatternDemo on "courses.basics_strong.reactive.section16" package.
 
 ### Concurrency and Parallel Programming
 
