@@ -54,7 +54,7 @@ Now take a look to how Observer interface:
 We had already discussed that method except the "onSubscribe" method.  
 **onSubscribe** this method is called once when an observer subscribes to an observable.  
 
-See th ObservableAndObserver java class in "courses.basics_strong.reactive.section17" package.
+See the ObservableAndObserver java class in "courses.basics_strong.reactive.section17" package.
 
 ### Crating Observable
 On the examples "ObservableAndObserver" and "HelloRxJava" we have created on "Observable" using its factory method "Observable.create(...)", but there are various ways to create an observable.  
@@ -80,6 +80,8 @@ On the examples "ObservableAndObserver" and "HelloRxJava" we have created on "Ob
 11. **defer(Supplier<ObservableSource> observableSupplier)** it creates a separate state for each observer. Useful when for example we wants observes a list that can change.
 12. **fromCallable(Callable)** similar to "fromFuture" with also the same recommendations.
 
+See the CreatingObservable java class in "courses.basics_strong.reactive.section17" package.
+
 ### Crating Observer
 We have different ways to create an Observer.  
 The first way that we already discussed is by creating the anonymous inner class where we implement all Observer interface methods.  
@@ -89,9 +91,27 @@ But we don't always need to go with this approach we don't need to implement the
 We have different signatures of the Observable subscribe method to directly create observer.  
 We can pass a single consuming lambda in order to take the "onNext" value, or we can pass two lambdas to take the "onNext" and "onError", or three lambdas to also take the "onComplete" event.
 
+See the CreatingObserver java class in "courses.basics_strong.reactive.section17" package.
+
 ### Hot and Cold Observables
+How the observables are classified and what are Hot and Cold categories?  
+How observables behave when there are multiple Observers?  
+We have two kind of observables: **Hot** and **Cold** Observables.  
+An Observable is the source of emission of data, and it is possible that one observer subscribes to the source gets the data but after that the data is changed or modified.  
+Now if there are more observers will the other observers get the updated data or will they get the previous data.  
+*This is the criteria that decides an observable is a cold observable, or it is a hot observable.*  
+
+- **Cold Observable** When we use a "Cold Observable" and we modify data the new Observer subscriptions did after the data update will receive all data from the scratch. Observers that was subscribed before the data has update, will not receive them.
+- **Hot Observable** Is an observable that starts when we create it.  
+  It doesn't even wait for any subscription and all the observer get the same data from the observable.  
+  For any new subscription they **don't run from start**. All the observer will get the emitted item at once, so they are basically independent of observer subscription.  
+  We can always convert a Cold to Hot Observable using the "publish" methods provided by the Observable. This method returns a ConnectableObservable where we invoke the "connect" method to start catching the fired events.
+
+See the ColdObservable and HotObservable java class in "courses.basics_strong.reactive.section17" package.
 
 ### Connectable Observable
+This kind of Observable are observables that convert Cold Observable to Hot Observable. We can obtain them using the "publish()" method after an Observable creation.  
+NOTE: All Observable created provide that method, but actually, and I don't know why (I'm waiting the teacher response) only Observable instance provided by time based method (like "interval") works.
 
 ### Observable Variants
 
