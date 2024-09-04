@@ -81,6 +81,13 @@ On the examples "ObservableAndObserver" and "HelloRxJava" we have created on "Ob
 12. **fromCallable(Callable)** similar to "fromFuture" with also the same recommendations.
 
 ### Crating Observer
+We have different ways to create an Observer.  
+The first way that we already discussed is by creating the anonymous inner class where we implement all Observer interface methods.  
+In this way we create the Observer, and then we pass it to the Observable subscribe method.  
+
+But we don't always need to go with this approach we don't need to implement the observer interface on our own.  
+We have different signatures of the Observable subscribe method to directly create observer.  
+We can pass a single consuming lambda in order to take the "onNext" value, or we can pass two lambdas to take the "onNext" and "onError", or three lambdas to also take the "onComplete" event.
 
 ### Hot and Cold Observables
 
