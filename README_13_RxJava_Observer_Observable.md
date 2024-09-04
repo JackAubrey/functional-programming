@@ -57,6 +57,28 @@ We had already discussed that method except the "onSubscribe" method.
 See th ObservableAndObserver java class in "courses.basics_strong.reactive.section17" package.
 
 ### Crating Observable
+On the examples "ObservableAndObserver" and "HelloRxJava" we have created on "Observable" using its factory method "Observable.create(...)", but there are various ways to create an observable.  
+1. **create(...)** we already met this one, it is rarely used preferring the "just" method.  
+   This method need a lambda where we have to invoke manually: onNext, onComplete and onError.
+2. **just(T value)** it take one or more values to push, maximum 10 values. The onNext, onComplete and onError will be implicitly done by this.
+3. **fromIterable(Iterable<T> iterable)** like "just" method did, this is used to push value directly but taking it from an Iterable. We don't care about to handle the "onXXX" methods.  
+   Note: there are few methods like this one with same concept: "fromArray", "fromCollection", "fromStream", "fromSupplier", "fromFuture" and many others.
+4. **range(int starValue, int totalCount)** it range based emission so it takes start value and the total count, we also have its long equivalent **rangeLong**.
+5. **interval(....)** exists different variants of this method. we can pass an initial delay or not, we can pass a custom scheduler, but all these variants wants a period and a TimeUnit.  
+   NOTE: all these variants returns a Long.
+   These methods are designed to send an event every period of a certain time unit.  
+   *They continue to emit values until the subscription won't dispose.  
+   These variants are time based and need to work on separated thread.* 
+6. **intervalRange(...)** is very similar to "interval" and works similar to them. Despite the "interval" these variants:
+   1. always wants a "starValue" and a "totalCount"
+   2. when the count ends, automatically send the "onComplete" event.
+7. **fromFuture(Future<T> future)** PAY ATTENTION to use it, is not easy to use.
+8. **empty()** if we want to create an empty observer we invoke the empty method.   
+   It will emit nothing it will just call the on complete action.
+9. **never()** it also emits nothing, and it also never calls "onComplete" action. This observable is used for testing to prove that no emissions are coming from it.
+10. **error(ExSupplier exSup)** needs of an Observer able to handle the "onError" event. This is used to rise errors.
+11. **defer(Supplier<ObservableSource> observableSupplier)** it creates a separate state for each observer. Useful when for example we wants observes a list that can change.
+12. **fromCallable(Callable)** similar to "fromFuture" with also the same recommendations.
 
 ### Crating Observer
 
