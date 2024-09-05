@@ -57,6 +57,9 @@ We had already discussed that method except the "onSubscribe" method.
 See the ObservableAndObserver java class in "courses.basics_strong.reactive.section17" package.
 
 ### Crating Observable
+NOTE: every each creation factory methods was annotated with @ScheduleSupport.  
+This means when we're subscribing to one of them we will have different behaviours. Some of them blocking the main thread, others do not because wil run on separated thread like "interval(...)".  
+
 On the examples "ObservableAndObserver" and "HelloRxJava" we have created on "Observable" using its factory method "Observable.create(...)", but there are various ways to create an observable.  
 1. **create(...)** we already met this one, it is rarely used preferring the "just" method.  
    This method need a lambda where we have to invoke manually: onNext, onComplete and onError.
@@ -158,3 +161,11 @@ There are Observable Variants with each a slightly different purpose:
   See the ObservableVariants java class in "courses.basics_strong.reactive.section17" package.  
 
 ### Dispose
+When we subscribe to an Observable we always obtains a reference to its Disposable.  
+Disposable object permit to unsubscribe to an observable using its method "dispose()" or check if already disposed using "isDisposed()" method.  
+When we work with Observables after all the emissions "onComplete" method is called to signal the completion right.  
+This is the moment when the resources used by Observable gets disposed safely so that they can be garbage collected.  
+But suppose you're working with unbounded observables that do not stop sending emissions until the program is terminated and for a particular observer you don't want to keep getting the emissions indefinitely.  
+Then in such scenarios you can unsubscribe to the Observable using the "dispose()" method.  
+We already met its usage in "CreatingObservable" java class in "courses.basics_strong.reactive.section17" package and also provide another example in "Disposing" in the same package.  
+In the Disposing demo, you can also see the usage of CompositeDisposable used to manage more than one Disposable instance at the same time.
