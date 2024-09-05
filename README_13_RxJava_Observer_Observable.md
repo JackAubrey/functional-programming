@@ -114,5 +114,47 @@ This kind of Observable are observables that convert Cold Observable to Hot Obse
 NOTE: All Observable created provide that method, but actually, and I don't know why (I'm waiting the teacher response) only Observable instance provided by time based method (like "interval") works.
 
 ### Observable Variants
+There are Observable Variants with each a slightly different purpose:
+- **Single**: is essentially an observable that will only emit one item.  
+  It is very helpful when we have a single result only.  
+  It does not contain on next or on complete method, but it has "onSuccess".  
+  The "onSuccess" method does both it invokes the "onNext" with the single element we have and then executes the "onComplete" as there are no more events to be emitted.   
+      
+      public interface SingleObserver<T> {
+        void onSubscribe(Disposable d);
+        void onSuccess(T t);
+        void onError(Throwable e);
+      }
+
+  We can obtain a "Single<T>" from an "Observable" source invoking the "first(T default)" method and then subscribing on it, or directly using the one of the factory method provided by the "Single" interface like "just(T value)".  
+  See the ObservableVariants java class in "courses.basics_strong.reactive.section17" package.
+
+- **Maybe** it used to emit 0 or 1 events.  
+  "Maybe" is an observable that **may or may not** emit a value.
+  The "onSuccess" method is the "onNext" method.
+  Note "onSuccess", "onError" and "onComplete" are mutually exclusive events; unlike Observable, "onSuccess" is never followed by "onError" or "onComplete".  
+
+      public interface MaybeObserver<T> {
+        void onSubscribe(Disposable d);
+        void onSuccess(T t);
+        void onError(Throwable e);
+        void onComplete();
+      }
+
+  We can obtain a "Maybe<T>" from an "Observable" source invoking the "firstElement()" method and then subscribing on it, or directly using the one of the factory method provided by the "Maybe" interface like "just(T value)".  
+  See the ObservableVariants java class in "courses.basics_strong.reactive.section17" package.
+
+- **Completable** does not emit any data.  
+  It is just concerned with the action being executed whether the action was successful or it failed so that's why it does not emit anything.  
+  Looking its interface we notice there are only three methods. No "onSuccess" or "onNext" exists.
+  We can obtain a Completable using one of its Interface factory methods like: "fromSingle", "fromMaybe", "fromAction", "fromRunnable" and so on.
+
+      public interface CompletableObserver {
+        void onSubscribe(Disposable d);
+        void onComplete(T t);
+        void onError(Throwable e);
+      }
+
+  See the ObservableVariants java class in "courses.basics_strong.reactive.section17" package.  
 
 ### Dispose
