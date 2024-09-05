@@ -73,5 +73,3 @@ There are different type of Operators:
   - **"doOnError(Consumer< Throwable > consumer)"**
   - **"doOnSubscribe(Consumer< Disposable > consumer)"**
   - **"doOnComplete(Action a)"**
-
-### Operators in Action
