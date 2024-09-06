@@ -73,3 +73,5 @@ There are different type of Operators:
   - **"doOnError(Consumer< Throwable > consumer)"**
   - **"doOnSubscribe(Consumer< Disposable > consumer)"**
   - **"doOnComplete(Action a)"**
+
+Take a look to "OperatorsInAction" on "courses.basics_strong.reactive.section18" package.

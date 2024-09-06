@@ -8,10 +8,10 @@ import net.datafaker.providers.base.Name;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class OperatorsDemo {
+
     public static void main(String[] args) {
         Stream<Integer> intStream = buildRandomIntegerStream(30, 100, 300);
         Predicate<Integer> isEvenPredicate = i -> i % 2 == 0;
