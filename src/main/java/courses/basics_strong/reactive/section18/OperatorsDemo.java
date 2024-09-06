@@ -6,7 +6,9 @@ import io.reactivex.rxjava3.functions.Predicate;
 import net.datafaker.Faker;
 import net.datafaker.providers.base.Name;
 
+import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class OperatorsDemo {
@@ -38,6 +40,21 @@ public class OperatorsDemo {
                 .reduce( (x,y) -> x+y)
                 .subscribe(OperatorsDemo::log);
         // as you can see they are identical except scan emit every step, reduce only the final
+
+        // given a sequence of list
+        log("\nFlatMap usage example");
+        Observable.just(
+                List.of("Language: Java", "IDE: Eclipse", "Framework: Spring"),
+                List.of("Language: Java", "IDE: IntelliJ", "Framework: Spring"),
+                List.of("Language: Go", "IDE: IntelliJ", "Framework: Nothing"),
+                List.of("Language: Go", "IDE: MS Source", "Framework: Something"),
+                List.of("Language: Python", "IDE: Idea Intellij", "Framework: Nothing"),
+                List.of("Language: PHP", "IDE: Idea Intellij", "Framework: PHP Storm")
+        )
+                .filter(l -> l.stream().anyMatch(s -> s.contains("Java")))
+                .doOnNext(e -> log("--> After Filter: "+e) )
+                .flatMap(Observable::fromIterable)
+                .subscribe(OperatorsDemo::log);
     }
 
     private static void log(@NonNull Object e) {
