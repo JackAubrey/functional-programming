@@ -27,6 +27,17 @@ public class OperatorsDemo {
                 .map( i -> new User(fakerName.fullName(), i)) // returns an Observable<User>
                 //finally we subscribe
                 .subscribe(OperatorsDemo::log);
+
+        // given a sequence of numbers we want see in action the difference between scan and reduce
+        log("\n Scan result of numbers from 1 to 10");
+        Observable.just(1,2,3,4,5,6,7,8,9,10)
+                .scan( (x,y) -> x+y)
+                .subscribe(OperatorsDemo::log);
+        log("\nReduce result of numbers from 1 to 10");
+        Observable.just(1,2,3,4,5,6,7,8,9,10)
+                .reduce( (x,y) -> x+y)
+                .subscribe(OperatorsDemo::log);
+        // as you can see they are identical except scan emit every step, reduce only the final
     }
 
     private static void log(@NonNull Object e) {
