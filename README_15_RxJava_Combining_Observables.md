@@ -10,6 +10,16 @@ All combining operators are about merging the emissions of multiple observables 
 **NOTE:** Using source that emit data from the same thread for example using "just(...)" factory method, both method produce the same result. Merge will produce a result equals to what we expected from concat.  
 Unlike if we use sources that works on separated thread for example using "interval(...)" factory method, the "merge" method works as we expect, but the "contact" method since it need to work sequentially, will never emit the second source until the first one ends. So in case like "interval" we need to limit (using the "take()" method) the first source.
 
+The "Observable" interface offer some factory method for "merge" and "concat", but we can also do the same using the "mergeWith" and "concatWith" methods provided by the Observable instance created via one of Observable creation factory method.
+
+    // Via Factory Method
+    Observable.merge(s1, s2)
+
+    // Via Observable Reference
+    Observable<String> s1 = Observable.just(...);
+    Observable<String> s2 = Observable.just(...);
+    s1.mergeWith(s2);
+
 - **merge(Observable o1, Observable o2)** merge takes two observables but that's not the only signature we have.  
   ![image info](./imgs/Schermata_20240906_122808.png "Merge")
   If an error occur (the X in the marble diagram) no further emission will be emitted.
