@@ -49,6 +49,9 @@ Both methods have many overloads methods.
   ![image info](./imgs/Schermata_20240906_152329.png "ConcatMap")
 
 ### Disposing of duplicated emitting source: the "amb()" method
+When we have multiple sources that are emitting the same data, we can use this operator to reduce the execution time by only considering the faster source.  
+
+See "AmpDemo" java example in "courses.basics_strong.reactive.section19" package.
 
 ### Zip vs CombineLatest
 
