@@ -29,6 +29,24 @@ The "Observable" interface offer some factory method for "merge" and "concat", b
   Also for concat we have multiple overloads method and in case of error the emission ends.
 
 ### FlatMap vs ConcatMap
+Like we saw for merge and concat also this two methods used to merge and concat.
+*Remember: merge returns observable that performs the emissions in interleaved fashion whereas concat returns an observable that performs emissions in sequential fashion.*  
+But these **"flatMap" and "concatMap" operations are a lot different from merge and concat methods.**  
+Basically their application is entirely different.
+See "FlatMapAndConcatMap" java example in "courses.basics_strong.reactive.section19" package. 
+
+As we already said for merge and concat, to see the difference between fltMap and concatMap we need use a mapper that works on separated thread to see merge working on interleaved manner.
+
+Both methods have many overloads methods.
+
+- **flatMap(...)** merges the observables.  
+  It takes each emission or each element and then break it up into multiple elements and returns an observable having those elements and finally when we get all the observables corresponding to each element the merging happens.
+  Flatmap takes all these observables returned by each element and flatten them or merge them to have a single observable having all the emissions of those created observables.  
+  ![image info](./imgs/Schermata_20240906_152048.png "FlatMap")
+
+- **concatMap(...)** concatenates the observables.  
+  Is just like "flatMap" only difference is that the final merging between the observables will be in sequential fashion
+  ![image info](./imgs/Schermata_20240906_152329.png "ConcatMap")
 
 ### Disposing of duplicated emitting source: the "amb()" method
 
