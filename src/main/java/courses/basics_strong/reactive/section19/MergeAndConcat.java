@@ -1,13 +1,13 @@
 package courses.basics_strong.reactive.section19;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 import java.util.concurrent.TimeUnit;
 
-public class MergeAndConcat {
+public class MergeAndConcat extends BasicExampleClass {
     private static final CompositeDisposable disposables = new CompositeDisposable();
 
     public static void main(String[] args) {
@@ -58,18 +58,5 @@ public class MergeAndConcat {
         sleep(10, TimeUnit.SECONDS);
 
         disposables.dispose();
-    }
-
-    private static void log(@NonNull Object e) {
-        System.out.println(e);
-    }
-
-    private static void sleep(int period, TimeUnit unit) {
-        try {
-            unit.sleep(period);
-        } catch (InterruptedException e) {
-            log(e.toString());
-            Thread.currentThread().interrupt();
-        }
     }
 }

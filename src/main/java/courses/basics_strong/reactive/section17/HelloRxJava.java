@@ -1,9 +1,10 @@
 package courses.basics_strong.reactive.section17;
 
+import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class HelloRxJava {
+public class HelloRxJava extends BasicExampleClass {
     public static void main(String[] args) {
         // this is RxJava Observable. Do not confuse it with our previous example interface.
         //
@@ -27,9 +28,9 @@ public class HelloRxJava {
         //  1 - we are subscribing our Observable to itself in order to allow itself the access to stream ov events.
         //  2 - for each event emitted from the Observable source, it prints
         // this is one observer that is listening to the source observable but of course there can be many and this is what the idea is
-        Disposable subscribe1 = sourceObservable.subscribe(e -> System.out.println("Observer 1: " + e));
+        Disposable subscribe1 = sourceObservable.subscribe(e -> log("Observer 1: " + e));
         // we can create another observable
-        Disposable subscribe2 = sourceObservable.subscribe(e -> System.out.println("Observer 2: " + e));
+        Disposable subscribe2 = sourceObservable.subscribe(e -> log("Observer 2: " + e));
         // now both the observers will listen to the events emitted by the source observable one after the other
         //
         // NOTE: for now everything is SYNCHRONOUS, WE CAN'T GO ASYNC OR CONCURRENT until unless we don't actually ask for it.
@@ -38,7 +39,7 @@ public class HelloRxJava {
         // The point here is we can create as many observer as we need that does operations on the same data emitted by observable source.
 
         // just print the status of Disposable
-        System.out.println("First Observable Is disposed ? "+subscribe1.isDisposed());
-        System.out.println("Second Observable Is disposed ? "+subscribe2.isDisposed());
+        log("First Observable Is disposed ? "+subscribe1.isDisposed());
+        log("Second Observable Is disposed ? "+subscribe2.isDisposed());
     }
 }

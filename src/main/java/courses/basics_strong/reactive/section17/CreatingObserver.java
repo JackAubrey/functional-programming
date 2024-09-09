@@ -1,11 +1,15 @@
 package courses.basics_strong.reactive.section17;
 
+import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class CreatingObserver {
+public class CreatingObserver extends BasicExampleClass {
+    private static final CompositeDisposable disposables = new CompositeDisposable();
+
     public static void main(String[] args) {
         // this is our observable
         Observable<String> observable = Observable.just("John", "Mark", "Zelda");
@@ -16,38 +20,41 @@ public class CreatingObserver {
         // now we are going to subscribe the Observable to the Observers
         observable.subscribe(observerFromInnerClass);
         // in this case we are providing Consumer lambadas. there are different variants
-        observable.subscribe(
-                s -> System.out.println("On Next simple: "+s)
+        disposables.add(
+                observable.subscribe(s -> log("On Next simple: "+s))
         );
-        observable.subscribe(
-                s -> System.out.println("On Next: "+s),
-                e -> System.err.println("On Error: "+e),
-                () -> System.out.println("On Complete")
+        disposables.add(
+                observable.subscribe(
+                    s -> log("On Next: "+s),
+                    e ->logErr("On Error: "+e),
+                    () -> log("On Complete")
+                )
         );
 
+        disposables.dispose();
     }
 
 
     private static Observer<String> creatingFromInnerClass() {
-        return new Observer<String>() {
+        return new Observer<>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-                System.out.println("Subscribed");
+                log("Subscribed");
             }
 
             @Override
             public void onNext(@NonNull String s) {
-                System.out.println("Value = "+s);
+                log("Value = "+s);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                System.err.println("Error:" + e);
+               logErr("Error:" + e);
             }
 
             @Override
             public void onComplete() {
-                System.out.println("Finish");
+                log("Finish");
             }
         };
     }

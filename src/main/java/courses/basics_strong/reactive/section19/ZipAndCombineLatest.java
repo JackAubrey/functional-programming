@@ -1,14 +1,14 @@
 package courses.basics_strong.reactive.section19;
 
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.BiFunction;
 
 import java.util.concurrent.TimeUnit;
 
-public class ZipAndCombineLatest {
+public class ZipAndCombineLatest extends BasicExampleClass {
 
     public static void main(String[] args) {
         Observable<Long> source1 = Observable.interval(200, TimeUnit.MILLISECONDS);
@@ -22,7 +22,7 @@ public class ZipAndCombineLatest {
         Disposable zipDisposable = Observable.zip(source1, source2, zipper)
                 .subscribe(ZipAndCombineLatest::log);
 
-        sleep(7);
+        sleep(7, TimeUnit.SECONDS);
         zipDisposable.dispose();
 
         // Combine Latest
@@ -32,21 +32,8 @@ public class ZipAndCombineLatest {
         Disposable combinedDisposable = Observable.combineLatest(source1, source2, combiner)
                 .subscribe(ZipAndCombineLatest::log);
 
-        sleep(10);
+        sleep(10, TimeUnit.SECONDS);
 
         combinedDisposable.dispose();
-    }
-
-    private static void log(@NonNull Object e) {
-        System.out.println(e);
-    }
-
-    private static void sleep(int period) {
-        try {
-            TimeUnit.SECONDS.sleep(period);
-        } catch (InterruptedException e) {
-            log(e.toString());
-            Thread.currentThread().interrupt();
-        }
     }
 }

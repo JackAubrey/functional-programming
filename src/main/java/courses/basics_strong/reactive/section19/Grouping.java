@@ -1,7 +1,7 @@
 package courses.basics_strong.reactive.section19;
 
+import courses.basics_strong.reactive.BasicExampleClass;
 import courses.basics_strong.reactive.section19.model.CompanyEmployee;
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.functions.Function;
@@ -11,12 +11,11 @@ import net.datafaker.providers.base.Name;
 import net.datafaker.providers.base.Number;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class Grouping {
+public class Grouping extends BasicExampleClass {
 
     public static final String FEMALE = "Female";
     public static final String MALE = "Male";
@@ -24,28 +23,44 @@ public class Grouping {
     private static final CompositeDisposable disposables = new CompositeDisposable();
 
     public static void main(String[] args) {
-        List<CompanyEmployee> employeeList = buildStaticList(); //generate(100);
+        List<CompanyEmployee> employeeList = buildStaticList();
         Observable<CompanyEmployee> employeeSource = Observable.fromIterable(employeeList);
+        Observable<CompanyEmployee> employeeRandSource = Observable.fromIterable(generate());
 
         // group employees by its rating value
         log("## Grouped by rating value");
         disposables.add(
-                employeeSource.groupBy(e -> e.getRating())
-                        .flatMapSingle( g -> g.toMultimap(key -> g.getKey(), emp -> emp.getName()))
+                employeeSource
+                        .groupBy(CompanyEmployee::getRating)
+                        .flatMapSingle( g -> g.toMultimap(key -> g.getKey(), CompanyEmployee::getName))
                         // the flatMap upon is equivalent of
                         // .flatMap( g -> Observable.fromSingle(g.toMap(key -> g.getKey(), emp -> emp.getName())) )
-                .subscribe(Grouping::log)
+                        .subscribe(BasicExampleClass::log)
         );
 
         log("\n## Grouped by rating threshold");
-        Function<CompanyEmployee, Double> groupByRatingThreshold = e -> (double)Double.valueOf(e.getRating()).intValue();
+        Function<CompanyEmployee, String> groupByRatingThreshold = e -> {
+            int min = (int)e.getRating();
+            int max = min+1;
+
+            return "Rating >= ["+min+"] < ["+max+"]";
+        };
 
         disposables.add(
-                employeeSource.groupBy(groupByRatingThreshold)
-                        .flatMapSingle( g -> g.toMultimap(key -> g.getKey(), emp -> emp.getName()))
+                employeeSource
+                        .groupBy(groupByRatingThreshold)
+                        .flatMapSingle( g -> g.toMultimap(key -> g.getKey(), CompanyEmployee::getName))
                         // the flatMap upon is equivalent of
                         // .flatMap( g -> Observable.fromSingle(g.toMap(key -> g.getKey(), emp -> emp.getName())) )
-                        .subscribe(Grouping::log)
+                        .subscribe(BasicExampleClass::log)
+        );
+
+        log("\n## Grouped by Genre");
+        disposables.add(
+                employeeRandSource
+                        .groupBy(CompanyEmployee::getGender)
+                        .flatMapSingle( g -> g.toMultimap(key -> g.getKey(), CompanyEmployee::getName))
+                        .subscribe(BasicExampleClass::log)
         );
 
         disposables.dispose();
@@ -67,7 +82,7 @@ public class Grouping {
     }
 
 
-    private static List<CompanyEmployee> generate(int count) {
+    private static List<CompanyEmployee> generate() {
         Faker faker = new Faker();
         Name fakerName = faker.name();
         Gender fakerGender = faker.gender();
@@ -83,19 +98,6 @@ public class Grouping {
             return new CompanyEmployee(id, name, gender, salary, rating);
         };
 
-        return Stream.generate(supplier).limit(count).toList();
-    }
-
-    private static void log(@NonNull Object e) {
-        System.out.println(e);
-    }
-
-    private static void sleep(int period) {
-        try {
-            TimeUnit.SECONDS.sleep(period);
-        } catch (InterruptedException e) {
-            log(e.toString());
-            Thread.currentThread().interrupt();
-        }
+        return Stream.generate(supplier).limit(20).toList();
     }
 }

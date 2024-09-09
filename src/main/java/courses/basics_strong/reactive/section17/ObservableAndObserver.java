@@ -1,5 +1,6 @@
 package courses.basics_strong.reactive.section17;
 
+import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
@@ -7,7 +8,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 import java.util.Random;
 
-public class ObservableAndObserver {
+public class ObservableAndObserver extends BasicExampleClass {
     public static void main(String[] args) {
         final Random random = new Random();
 
@@ -49,14 +50,6 @@ public class ObservableAndObserver {
             @Override
             public void onComplete() {
                 log("On Complete");
-            }
-
-            void log(String message) {
-                System.out.println(message);
-            }
-
-            void logErr(String message) {
-                System.err.println(message);
             }
         };
 

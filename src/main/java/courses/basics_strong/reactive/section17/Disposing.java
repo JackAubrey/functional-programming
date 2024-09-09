@@ -1,12 +1,12 @@
 package courses.basics_strong.reactive.section17;
 
+import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.disposables.Disposable;
 
 import java.util.concurrent.TimeUnit;
 
-public class Disposing {
+public class Disposing extends BasicExampleClass {
     private static final CompositeDisposable compDisposable = new CompositeDisposable();
 
     public static void main(String[] args) {
@@ -39,18 +39,5 @@ public class Disposing {
         }
 
         log("Process finished!");
-    }
-
-    private static void sleep(int period, TimeUnit unit) {
-        try {
-            unit.sleep(period);
-        } catch (InterruptedException e) {
-            log(e.toString());
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    private static void log(String message) {
-        System.out.println(message);
     }
 }
