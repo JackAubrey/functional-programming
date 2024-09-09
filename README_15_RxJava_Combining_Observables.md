@@ -72,3 +72,11 @@ In case of "combinedLatest" the emissions which are latest are combined to resul
 See "ZipAndCombineLatest" java example in "courses.basics_strong.reactive.section19" package.
 
 ### Grouping and Grouped Observables
+Is used to group emissions by some specific key into separate observables. In order to do this, we have operator "groupBby".  
+It takes a lambda to map emission to a certain key.  
+It takes emissions  and group them as per our key selector that we pass it, and then it emits the grouped items as grouped observables.  
+The observable returned by "groupBy" consists of two "GroupedObservable" formed from these emissions according to the key selector.  
+What is a "GroupedObservable"? Is a type of observable that emits an emission mapped to some specific key.  
+![image info](./imgs/Schermata_20240909_162325.png "CombineLatest")
+
+See "Combining" java example in "courses.basics_strong.reactive.section19" package.
