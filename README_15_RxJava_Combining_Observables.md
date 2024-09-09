@@ -54,5 +54,21 @@ When we have multiple sources that are emitting the same data, we can use this o
 See "AmpDemo" java example in "courses.basics_strong.reactive.section19" package.
 
 ### Zip vs CombineLatest
+In case of "zip" each corresponding value is combined according to the given lambda to result to a new emission in the resulting observable.  
+In case of "combinedLatest" the emissions which are latest are combined to result to a new emission in the resulting observable.  
+![image info](./imgs/Schermata_20240909_101902.png "Zip vs CombineLatest")
+
+- **zip(...)** we have many signatures for "zip" method.  
+  It takes observables that we are going to zip and a zipper function. It can take from two to nine observables so it has so many overloads and a zipper function.  
+  Zipping allows you to take an emission from each observable source and combine them or combine these different emitted types into a single emission.  
+  You provide the lambda to decide how the corresponding emissions should get combined.  
+  Basically the zip method returns an observable that applies a function of your choice to combine the items emitted.  
+  ![image info](./imgs/Schermata_20240909_100220.png "Zip")
+
+- **combineLatest(...)**  we have many signatures for "combineLatest" method.
+  It is quite identical to "zip", it combines emissions in one to one pairing just like "zip" the difference is one resource emission never waits for other resource to emit new mission it just pairs with the latest emission from the resource.  
+  ![image info](./imgs/Schermata_20240909_100743.png "CombineLatest")
+
+See "ZipAndCombineLatest" java example in "courses.basics_strong.reactive.section19" package.
 
 ### Grouping and Grouped Observables
