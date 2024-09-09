@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class AmpDemo {
+public class AmbDemo {
     private static final CompositeDisposable disposables = new CompositeDisposable();
 
     public static void main(String[] args) throws InterruptedException {
