@@ -1,4 +1,4 @@
-package courses.basics_strong.reactive.section20;
+package courses.basics_strong.reactive.section21;
 
 import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.core.Observable;

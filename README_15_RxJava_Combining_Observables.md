@@ -33,7 +33,7 @@ Like we saw for merge and concat also this two methods used to merge and concat.
 *Remember: merge returns observable that performs the emissions in interleaved fashion whereas concat returns an observable that performs emissions in sequential fashion.*  
 But these **"flatMap" and "concatMap" operations are a lot different from merge and concat methods.**  
 Basically their application is entirely different.
-See "FlatMapAndConcatMap" java example in "courses.basics_strong.reactive.section19" package. 
+See "FlatMapAndConcatMap" java example in "courses.basics_strong.reactive.section20" package. 
 
 As we already said for merge and concat, to see the difference between fltMap and concatMap we need use a mapper that works on separated thread to see merge working on interleaved manner.
 
@@ -51,7 +51,7 @@ Both methods have many overloads methods.
 ### Disposing of duplicated emitting source: the "amb()" method
 When we have multiple sources that are emitting the same data, we can use this operator to reduce the execution time by only considering the faster source.  
 
-See "AmpDemo" java example in "courses.basics_strong.reactive.section19" package.
+See "AmpDemo" java example in "courses.basics_strong.reactive.section20" package.
 
 ### Zip vs CombineLatest
 In case of "zip" each corresponding value is combined according to the given lambda to result to a new emission in the resulting observable.  
@@ -69,7 +69,7 @@ In case of "combinedLatest" the emissions which are latest are combined to resul
   It is quite identical to "zip", it combines emissions in one to one pairing just like "zip" the difference is one resource emission never waits for other resource to emit new mission it just pairs with the latest emission from the resource.  
   ![image info](./imgs/Schermata_20240909_100743.png "CombineLatest")
 
-See "ZipAndCombineLatest" java example in "courses.basics_strong.reactive.section19" package.
+See "ZipAndCombineLatest" java example in "courses.basics_strong.reactive.section20" package.
 
 ### Grouping and Grouped Observables
 Is used to group emissions by some specific key into separate observables. In order to do this, we have operator "groupBby".  
@@ -79,4 +79,4 @@ The observable returned by "groupBy" consists of two "GroupedObservable" formed 
 What is a "GroupedObservable"? Is a type of observable that emits an emission mapped to some specific key.  
 ![image info](./imgs/Schermata_20240909_162325.png "CombineLatest")
 
-See "Combining" java example in "courses.basics_strong.reactive.section19" package.
+See "Combining" java example in "courses.basics_strong.reactive.section20" package.

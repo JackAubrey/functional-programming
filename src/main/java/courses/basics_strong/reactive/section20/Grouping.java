@@ -1,7 +1,7 @@
-package courses.basics_strong.reactive.section19;
+package courses.basics_strong.reactive.section20;
 
 import courses.basics_strong.reactive.BasicExampleClass;
-import courses.basics_strong.reactive.section19.model.CompanyEmployee;
+import courses.basics_strong.reactive.section20.model.CompanyEmployee;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.functions.Function;

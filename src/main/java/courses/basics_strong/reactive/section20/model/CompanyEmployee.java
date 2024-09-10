@@ -1,4 +1,4 @@
-package courses.basics_strong.reactive.section19.model;
+package courses.basics_strong.reactive.section20.model;
 
 public class CompanyEmployee {
     private Integer id;
