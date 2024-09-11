@@ -23,8 +23,16 @@ public class IOScheduler extends BasicExampleClass {
 
         // Now we are going to subscribe a certain number of subscribers to our source
         // My current machine has 12 processors available.
+        //
+        // Now we are going to subscribe 1 Observable and wait for 5 seconds.
+        log("--> Going to subscribe 1 Observable for 5 seconds");
+        disposables.add( source.subscribe(IOOperation::perform) );
+        sleep(5, TimeUnit.SECONDS);
+
         // So we are going to subscribe a number of observers two times greater than our available processors in order to see how the thread will be used.
         // You'll see that thread grows up but since this kind of operation do nothing for a lot of time, this not create any kind of problem to our system.
+        // If you look the output, THE FIRST THREAD used for the single subscription did upon, WILL BE REUSED.
+        log("\n--> Going to subscribe "+(numAvailableProc*2)+" Observables!");
         for(int i=0; i<numAvailableProc*2; i++) {
             disposables.add( source.subscribe(IOOperation::perform) );
         }
