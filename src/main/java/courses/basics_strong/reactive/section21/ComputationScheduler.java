@@ -36,11 +36,6 @@ public class ComputationScheduler extends BasicExampleClass {
         log("Ends...");
         disposables.dispose();
     }
-
-    static void compute() {
-        sleep(1, TimeUnit.SECONDS);
-        log("Computation done by : "+Thread.currentThread().getName());
-    }
 }
 
 interface Calculation {
