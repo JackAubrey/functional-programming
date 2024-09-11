@@ -1,4 +1,4 @@
-package courses.basics_strong.reactive.section21;
+package courses.basics_strong.reactive.section21.schedulers;
 
 import courses.basics_strong.reactive.BasicExampleClass;
 import io.reactivex.rxjava3.core.Observable;
