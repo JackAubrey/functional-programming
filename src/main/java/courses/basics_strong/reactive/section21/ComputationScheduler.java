@@ -29,7 +29,7 @@ public class ComputationScheduler extends BasicExampleClass {
             disposables.add( source.subscribe(Calculation::compute) );
         }
 
-        // wait 10 seconds
+        // wait 20 seconds
         sleep(20, TimeUnit.SECONDS);
 
         // and dispose all
