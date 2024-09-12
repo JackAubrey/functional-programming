@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import java.util.concurrent.TimeUnit;
 
-public class ObserveOnDemoPositionMatter extends BasicExampleClass {
+public class ObserveOnDemo extends BasicExampleClass {
     private static final CompositeDisposable disposables = new CompositeDisposable();
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class ObserveOnDemoPositionMatter extends BasicExampleClass {
                 // THIRD "observeOn(...)" call
                 .observeOn(Schedulers.io())
                 .doOnNext( e -> log("After Third ObserveOn | Thread: "+Thread.currentThread().getName()))
-                .subscribe(SubscribeOnDemoPositionMatter::print);
+                .subscribe(SubscribeOnDemo::print);
 
         disposables.add(subscribe);
 
