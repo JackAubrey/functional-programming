@@ -119,3 +119,10 @@ but if you have a lot of emissions you can potentially run into memory issues so
 See "ObserveOnDemo" on "courses.basics_strong.reactive.section21" package.
 
 ### Achieving Concurrency using Flat Map
+We cannot run emissions concurrently on a single observer because it would as it breaches the observable contract.  
+But what if we create multiple observables out of those emissions and then run those observables in parallel using the "flatMap" operator?  
+Each having its own single thread pushing items through.  
+
+**NOTE: this technique works fine but use it with care because creating an observable for each emission might create some unwanted overhead.**  
+
+See "ObserveOnDemo" on "courses.basics_strong.reactive.section21" package.
