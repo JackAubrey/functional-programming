@@ -82,39 +82,40 @@ See this marble diagram it is just showing that "subscribeOn" asynchronously sub
 That's true but that's not at about "subscribeOn".  
 There are two things about the position of "subscribeOn" operator in the observable chain:  
 
-1. **Case when the POSITION of "subscribeOn(...)" DOES NOT MATTER**  
+1. **Case when the POSITION of "subscribeOn(...)" DOES NOT MATTER** Only when there is just on "subscribeOn(...)" call.  
 2. **Case when the POSITION of "subscribeOn(...)" MATTER** When there are more than one "subscribeOn(...)" or "observeOn(...)" calls.  
 
-You can put "subscribeOn(...)" anywhere in the observable chain, and it anyway will suggest to the upstream all the way to the origin observable 
-to the final observer, which thread to execute emissions with, but only when there are no more "subscribeOn(...)"  or no more "observeOn(...)" call in the chain.  
-So if we have more than one "subscribeOn(...)" calls let's say with different schedulers the one which is closest to the source wins.  
+**Does not matter** where you put "subscribeOn(...)" in the observable chain **only when there are no more "subscribeOn(...)" or no more "observeOn(...)" call.**  
+It anyway will suggest to the upstream all the way to the origin observable to the final observer, which thread to execute emissions with.  
+
+**Matter** If we have **more than one** "subscribeOn(...)" or "observeOn(...)" calls, the closest schedulers to the source wins.  
 If I call "subscribeOn( Schedulers.computation() )" and then I call "subscribeOn( Schedulers.newThread() )" the first one scheduler is that one that will be used.  
 So prefer to call "subscribeOn( ... )" as close to source as possible so when there are more than one subscribe.  
 
-See "SubscribeOnDemoPositionMatter" on "courses.basics_strong.reactive.section21" package.
+See "SubscribeOnDemo" on "courses.basics_strong.reactive.section21" package.
 
 ### Observe On
 We saw "subscribeOn(...)" is no help or might bother you if you want to change the scheduler in middle of observable chain.  
-RxJava offer a solution to achieve this and is **"observeOn(...)"** operator.  
+RxJava offer a solution to achieve this, and it is the **"observeOn(...)"** operator.  
 This operator intercepts the emission at the point where it is placed in the observable chain and switch them to a different scheduler going forward.  
 So unlike "subscribeOn(...)" the placement of "observeOn(...)" matters.  
 The upstream operators before "observeOn(...)" are not impacted but downstream will use the scheduler provided by "observeOn(...)".  
 You can use "observeOn(...)" call in between the chain to switch onto different schedulers for the part of the chain which is having for example IO intensive operations and the rest with some other appropriate scheduler.  
 
 **NOTE** it might seem perfect to you but *there are some performance implications* with "observeOn(...)". 
-Generally what happens is when we have observable chain the elements emitted from the source are processed one after other
+Generally what happens is when we have observable chain, the elements emitted from the source are processed one after other
 so one element go through the complete chain and then next comes and this goes on until there are elements to be emitted from the source.  
-Now suppose if we introduce an observe on with a different scheduler in between this chain what happens is the operations above "observeOn(...)" 
-execute on different scheduler and then the element reaches to this "observeOn(...)" call, and it emits the same element using different scheduler, 
-and then it goes through the remaining chain that element goes through the right.  
-Now the "observeOn(...)" does not wait for this element to complete this chain its work was only to change the scheduler so meanwhile the next element
+Now suppose if we introduce an "observeOn(...)" with a different scheduler in between this chain.  
+What happens is the operations above "observeOn(...)" will be executed on a  scheduler and then their emission will reach to this "observeOn(...)" call 
+that will emit the same element but using a different scheduler, and then it'll go through the remaining chain.  
+Now the "observeOn(...)" does not wait for this element to complete this chain, its work was only to change the scheduler so meanwhile the next element
 reaches this "observeOn(...)" it again emits that element without waiting for the downstream to finish the current one.  
 **This means that the upstream to the "observeOn(...)" can produce emissions faster than the downstream can process it.**  
-This is called a producer consumer problem where the producer is producing emissions faster than the consumer is consuming the elements so if this happens 
+**This is called a producer consumer problem** where the producer is producing emissions faster than the consumer is consuming the elements so if this happens 
 the unprocessed emissions will be queued up in "observeOn(...)" until the downstream is able to process the elements, 
 but if you have a lot of emissions you can potentially run into memory issues so in such scenarios we generally avoid creating observable.  
 **In this scenario instead of creating observable we use "flowable" which supports back pressure.**
 
-See "ObserveOnDemoPositionMatter" on "courses.basics_strong.reactive.section21" package.
+See "ObserveOnDemo" on "courses.basics_strong.reactive.section21" package.
 
 ### Achieving Concurrency using Flat Map
