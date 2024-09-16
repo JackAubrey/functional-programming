@@ -24,12 +24,29 @@ Both Replaying and Caching are a weird combination of hot and cold observable th
 
    See both "Replaying" and "ReplayingAndXXX" examples on "courses.basics_strong.reactive.section22" package.
 
-2. **Caching** is very similar to "replay" but "cache" operator return an Observable and we don't need to use "autoConnect" or "connect" methods.  
+2. **Caching** is very similar to "replay" but "cache" operator return an Observable, and we don't need to use "autoConnect" or "connect" methods.  
    The caching stars automatically when we subscribe to an Observable.  
    Another different is unlike "reply" method, "cache" doesn't offer overloads.
 
 ### Subjects
+Quick recap: Observables emits data and Observers listen those emissions.  
+**Subject is a kind of bridge or proxy that can act as both an observer and an observable.**  
+It can observe data items **from multiple sources and can emit data to multiple observers** as it implements both object variable and observers simultaneously.  
+So this makes Subjects suitable for both output and input.  
+**Subjects can multicast too**, all the subscribed observers will receive the same emissions from the point where they have subscribed.  
 
+![image info](./imgs/Schermata_20240913_122907.png "Subject")
+![image info](./imgs/Schermata_20240913_123034.png "Subject")
+
+Two point about the Subjects:
+1. they multicast they are hot
+2. they can be used to merge the emissions from multiple sources
+
+You can have any number of observables and observers simultaneously and the subject can help us process all the connections simultaneously.  
+But **keep in mind** that while doing this you're not increasing the complexity unnecessarily.  
+
+See both "Subjects" and "SubjectsAsync" examples on "courses.basics_strong.reactive.section22" package.
+   
 ### Adding Emissions using Subjects
 
 ### Subject Implementations
