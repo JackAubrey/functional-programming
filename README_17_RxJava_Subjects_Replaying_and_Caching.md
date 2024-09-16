@@ -45,8 +45,34 @@ Two point about the Subjects:
 You can have any number of observables and observers simultaneously and the subject can help us process all the connections simultaneously.  
 But **keep in mind** that while doing this you're not increasing the complexity unnecessarily.  
 
+NOTE: Linking observables to observers or vice versa using Subject you can also input your own emissions in between but this also shows how dangerous it can be.  
+Suppose someone invoke "onComplete", every subscription will not get emission anymore or someone invoke "onNext" arbitrary getting unwanted and crap emissions.  
+You should prevent someone can use the Subject enclosing it.  
+Also there's no way to dispose them as they are disposable.  
+Therefore it is always preferred: 
+- to keep data driven sources cold 
+- or if we want them to be hot we should multicast them using the publish or replay methods
+- or we may cast it to observable itself
+- or wrap inside a class implementing on next on error on complete internally to control the sequence
+- or just don't expose it
+
+Another thing to note here is that **Subjects are not thread safe.**  
+If multiple threads are calling "onNext", "onComplete", "onError" or "onSubscribe" then emissions may start to overlap and that's not acceptable as emissions must happen sequentially.  
+So for this however we have "toSerialized" method that we can invoke on the Subject to create a safe serialized subject implementation that will make sequential all the event calls.
+
+      // Serialize Subjects
+      Subject<Object> serializedSubject = PublishSubject.create()
+                                             .toSerialized();
+
 See both "Subjects" and "SubjectsAsync" examples on "courses.basics_strong.reactive.section22" package.
    
 ### Adding Emissions using Subjects
+Subject exposes three well known methods:
+- "onNext"
+- "onError"
+- "onComplete"
+
+Remember the Subjects are "Hot" so this means if we invoke "onNext" before the Subject subscription will never see the result. **We must do it after the Subject subscription.**  
+Note: Invoking the "onComplete" we are saying the emissions ends. So if we invoke again the "onNext" method after the "onComplete" nothing will happen.
 
 ### Subject Implementations
