@@ -76,3 +76,48 @@ Remember the Subjects are "Hot" so this means if we invoke "onNext" before the S
 Note: Invoking the "onComplete" we are saying the emissions ends. So if we invoke again the "onNext" method after the "onComplete" nothing will happen.
 
 ### Subject Implementations
+Subjects are many different type of implementations:
+- **PublishSubject**: we have already met it.  
+  This is the most basic form of subject.  
+  Starts to emit the source observable items from the moment observer subscribe to it.  
+  See the "SubjectTypePublishSubject" on "courses.basics_strong.reactive.section22" package.  
+  For example consider a use case,
+  that's the case where published subject can be used to observe or consume data from the point of time when you tune to that channel.
+  ![image info](./imgs/Schermata_20240916_154951.png "PublishSubject")
+  - Suppose television is an observable.
+  - You are observer that observes some random thing on it, for example a movie.
+  - You'll start watching movie after tuning into that particular channel.
+  - You can get the previously transmitted data from it.
+
+- **ReplaySubject**: this subject type emits all the items of the source observable regardless of when the subscriber subscribes.  
+  That means it replace emissions for every subscriber. It is internally just a PublishSubject with a cache operator.  
+  See the "SubjectTypeReplaySubject" on "courses.basics_strong.reactive.section22" package.  
+  A use case is:
+  ![image info](./imgs/Schermata_20240916_160518.png "ReplaySubject")
+    - You're watching something on YouTube
+    - And then someone joins you
+    - If he wants to watch it from the beginning you may start it again
+
+- **BehaviorSubject**: its implementations is used to emit the most recent item with the subsequent items of the source observable from the point of subscription.
+  See the "SubjectTypeBehaviorSubject" on "courses.basics_strong.reactive.section22" package.  
+  A use case is:
+  ![image info](./imgs/Schermata_20240916_160518.png "BehaviorSubject")
+    - If you start watching something on Internet
+    - And your friend joins you and wants to watch it from the most recent thing not from beginning
+    - So that he gets idea about the context
+    - Instead of using "replay" we use BehaviorSubject in such case
+
+- **AsyncSubject**: this subject emits only the last value of the source observable after the source completes that is after invoking the "onComplete" action.  
+  See the "SubjectTypeAsyncSubject" on "courses.basics_strong.reactive.section22" package.  
+  One point to remember about AsyncSubject is that it will only emit the emissions when "onComplete" is called.  
+  **We shouldn't use this with infinite observables!!!**   
+  A use case is:
+  ![image info](./imgs/Schermata_20240916_162527.png "AsyncSubject")
+    - When neither you nor your friend are interested in watching the complete episode of some season
+    - Just want to come to know about the end that's where we use "AsyncSubject" 
+
+- **UnicastSubject**: this one just like any other subject can subscribe to sources, **but it buffers all the emissions received by the sources until an observer subscribes to it.**  
+  When an observer subscribes to it, it releases all the buffered emissions to the observer and clears its cache.  
+  And since it buffers emissions and emits emissions to the observer subscribing it just **allows one observer** because once the emissions get emitted to one observer they cannot be re-emitted to other one.  
+  **LOOK**: If we try to use it in one of our previous example we will obtain an Exception because with UnicastSubject we can use only one subscriber.  
+  See the "SubjectTypeUnicastSubject" on "courses.basics_strong.reactive.section22" package.
