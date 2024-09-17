@@ -32,10 +32,10 @@ The "Observable" interface offer some factory method for "merge" and "concat", b
 Like we saw for merge and concat also this two methods used to merge and concat.
 *Remember: merge returns observable that performs the emissions in interleaved fashion whereas concat returns an observable that performs emissions in sequential fashion.*  
 But these **"flatMap" and "concatMap" operations are a lot different from merge and concat methods.**  
-Basically their application is entirely different.
+Basically their application is entirely different.  
 See "FlatMapAndConcatMap" java example in "courses.basics_strong.reactive.section20" package. 
 
-As we already said for merge and concat, to see the difference between fltMap and concatMap we need use a mapper that works on separated thread to see merge working on interleaved manner.
+As we already said for merge and concat, to see the difference between flatMap and concatMap we need use a mapper that works on separated thread to see merge working on interleaved manner.
 
 Both methods have many overloads methods.
 
