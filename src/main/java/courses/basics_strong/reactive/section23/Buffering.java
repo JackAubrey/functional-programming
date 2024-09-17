@@ -39,7 +39,7 @@ public class Buffering extends BasicExampleClass {
 
         log("\n## Simple Buffer Size with skip");
         Disposable disposable3 = Observable.range(10, 30)
-                // we are buffering 4 items skipping data from.
+                // we are buffering 4 items skipping data.
                 // skip means: how many items emitted by the current Observable should be skipped before starting a new buffer
                 // it returns an Observable<List<T>>
                 // Each List<T> size is at most equals of buffer size
