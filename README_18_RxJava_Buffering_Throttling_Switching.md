@@ -93,3 +93,9 @@ There are a lot of method overloads...
 See "ThrottlingXXXX" examples on "courses.basics_strong.reactive.section23" package.
 
 ### Switch Map
+It belongs to the category of omitting emissions.  
+It similar to "flatMap", it also flattens the source observable but the difference is it only subscribe to the last emitted observable and disposes the previous ones.  
+**By doing that it allows us to cancel the emitting observable (and disposing, doesn't matter it has been processed or not) and switching to a new one.**  
+It can be used in so many situations where we want to prevent system from too many connection requests or stale work like for canceling database queries web requests or other expensive tasks that are redundant, and also we can replace them with other tasks.  
+
+See "Switching" example on "courses.basics_strong.reactive.section23" package.
