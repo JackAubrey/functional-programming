@@ -19,6 +19,14 @@ So this way producer may produce faster than the consumer can consume.
 See "ProducerConsumerProblem" example on "courses.basics_strong.reactive.section24" package.
 
 ### BackPressure with Flowable/Subscriber
+As we have Observable that emits to an Observer we also have **Flowable and Subscriber.**  
+Flowable emits and the Subscriber listen to those emissions.  
+We talked about the Producer/Consumer problem and need of BackPressure, but how we can apply it in the chain?  
+
+![image info](./imgs/Schermata_20240918_154630.png "Flowable/Subscriber simple chain")
+
+So Flowable is the replacement of Observable where we need BackPressure.  
+See "BackPressure" example on "courses.basics_strong.reactive.section24" package.
 
 ### Creation and BackPressure strategies
 

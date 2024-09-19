@@ -17,7 +17,7 @@ public class ProducerConsumerProblem extends BasicExampleClass {
     public static void main(String[] args) {
 
         // In order to show the Produce/Consumer problem
-        // We are going to create an observable range source that will emit numbers from 1 to RANGE_MAX
+        // we are going to create an observable range source that will emit numbers from 1 to RANGE_MAX
         Observable<String> observable = Observable.range(1, RANGE_MAX)
                 // than map the value just to do something inside and producing a log
                 .map(n -> {
@@ -28,7 +28,7 @@ public class ProducerConsumerProblem extends BasicExampleClass {
                 .observeOn(Schedulers.io());
 
         // now we subscribe on it.
-        // we pause a bit this observer and also produce a log
+        // we pause a bit this subscriber and also produce a log
         Disposable disposable = observable.subscribe(e -> {
             sleep(OBSERVER_SLEEP, TimeUnit.MILLISECONDS);
             log("\t[" + LocalTime.now() + "] --> Consumed is : " + e + " : "+Thread.currentThread().getName());
