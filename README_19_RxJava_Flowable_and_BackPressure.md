@@ -26,8 +26,21 @@ We talked about the Producer/Consumer problem and need of BackPressure, but how 
 ![image info](./imgs/Schermata_20240918_154630.png "Flowable/Subscriber simple chain")
 
 So Flowable is the replacement of Observable where we need BackPressure.  
-See "BackPressure" example on "courses.basics_strong.reactive.section24" package.
+See "BackPressure" example on "courses.basics_strong.reactive.section24" package.  
+See "BackPressureWithLimits" example on "courses.basics_strong.reactive.section24" package.
 
-### Creation and BackPressure strategies
+### Flowable Creation and BackPressure strategies
+As we already said pretty much all the Observable factories and operators apply to Flowable.  
+*They are same but still there is one critical difference between "Observable.create(...)" and "Flowable.create(...)":* with Flowable you must specify a back pressure strategy as a second argument.  
+There are different kind of  Buffer Strategies:  
+1. **BUFFER**: buffer queues up emissions in an unbounded queue.  
+   Until then the downstream is able to consume them. Once the downstream is ready it flushes the buffer, but it can cause an out of memory error if the queues gets too large.
+2. **DROP**: Drop if the downstream cannot keep up this will ignore the upstream emissions, and will not queue anything while the downstream is busy.
+3. **ERROR**: Error signals are missing back pressure exception the moment the downstream cannot keep up with the source.
+4. **LATEST**: This will keep only the latest emission until the downstream is ready to receive it.
+5. **MISSING**: It results in no back pressure implementation at all.  
+   The downstream must deal with the back pressure overflow.  
+
+See "FlowableCreation" example on "courses.basics_strong.reactive.section24" package.
 
 ### Flowable vs Observable
