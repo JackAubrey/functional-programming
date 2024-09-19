@@ -44,3 +44,42 @@ There are different kind of  Buffer Strategies:
 See "FlowableCreation" example on "courses.basics_strong.reactive.section24" package.
 
 ### Flowable vs Observable
+Observable and Flowable both are the entities that can be observed by observer or subscriber right.  
+**But Flowable:**
+1. it is an implementation of reactive stream
+2. it is different from Observable
+3. it supports BackPressure
+
+![image info](./imgs/Schermata_20240919_150905.png "Flowable vs Observable")
+![image info](./imgs/Schermata_20240919_154057.png "Flowable vs Observable")
+
+**We should use Flowables when:**
+1. we are expecting emissions in large amount of data and need to perform complex operations on them
+2. when we have HotObservables that continuously emit data even if consumer can't consume them.
+3. when we have asynchronous sources.  
+   when we are going to do concurrent or parallel programming like performing operations on different threads like combining different observables on different threads or using observeOn delay such operators.  
+   
+![image info](./imgs/Schermata_20240919_153032.png "Use Flowables when")
+
+**We should use Observables when:**
+1. when we have fewer emissions and if they are steady and continuous or when events are emitting lazily
+2. it will completely work fine as it's quicker and also has less overhead than Flowable
+3. it is synchronous and has limited concurrency.  
+   like using simply "subscribeOn" at the start of any observable chain.  
+   then we may go with observable as it will process the complete chain on a single thread.
+4. we should go with observables also while working with user events or time events as we can't handle them with flowables.  
+   to handle them we may use operators like buffer window and operators for throttling switching
+
+![image info](./imgs/Schermata_20240919_153955.png "Use Observables when")
+
+**Also, Flowables can be used when:**  
+there are io operations in our observable chains because most of io operation support blocking while returning results.
+iterating records line by line from the file or getting results set in the jdbc.
+such cases are easy to handle with flowable as they can be paused and resumed easily
+
+![image info](./imgs/Schermata_20240919_160844.png "Flowables can be used also")
+
+We can convert an Observable to a Flowable using the "toFlowable(BackPressureStrategy strategy)" operator.  
+Obviously we can convert also a Flowable to an Observable using the "toObservable()" operator.
+
+See "ConvertingToFlowable" and "ConvertingToObservable" examples on "courses.basics_strong.reactive.section24" package.
