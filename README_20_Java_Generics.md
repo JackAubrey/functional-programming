@@ -220,3 +220,24 @@ This means, using the "Lower Bounded" that only parents of specified type can be
     // In this case we can only pass Integer or its parent (a Number in this particular case)
     <T super Integer> void doSome(T data) {}
 
+### Restriction to WildCards
+Wildcard types also introduces limitations of their own.
+- first limitation is that with wild cards we cannot use them as a type parameter in class level that is in the header of the reference type declaration wild cards cannot be used.  
+
+      // We can not use on class
+      class Box<?> {
+      }
+
+      // We can not use as type on in/out method
+      ? getSome(){}
+      void doSome(? i);
+
+- second limitation is wildcards does not support multiple bounds 
+
+      // We can not use multiple estension
+      void doSome(List<? extends Number, Runnable) {}
+
+NOTE: Read operations have no restrictions on read operations but the thing is that:  
+- If I am using "Unbounded wildcard" type or "UpperBounded wildcard" type we can perform **only read operation**.  
+  Because this question mark stands for unknown type, and we have a List UpperBounded or Unbounded we don't know which type of element to add to list.
+- If I am using "LowerBounded wildcard" according to the super type we can perform write operations. 
