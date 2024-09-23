@@ -1,10 +1,12 @@
 ## Java Generics
 **What are Generics?** Generics are mechanism for type checking at compile time.  
-**Why we should use?** In application there may occur any compile time error while writing the code.  
+**Why we should use?** In application there may occur any compile time error while writing the code.
 
 Using Generics we can reuse the code.  
 **NOTE: Generics are not available for static attributes. This is because only single instance can be inferred with the appropriated type.**   
-We can make also an interface Generic and extends or implement it.
+We can make also an interface Generic and extends or implement it.  
+
+**See examples on "courses.basics_strong.generics.section26" package and sub packages.**
 
 ### Subclassing
 At the same time, we can extend a generic class and implement a generic interface which is extending another generic.  
@@ -140,6 +142,34 @@ Note about multiple bounded interfaces: in that case T must be an object that wi
     //
     doSome(new CBound());
 
+### Upper and Lower Bounding note
+**Taken from SonarLint note:**
+Expressions at an input position, such as arguments passed to a method, can have a more specific type than the type expected by the method, which is called covariance. Expressions at an output position, such as a variable that receives the return result from a method, can have a more general type than the method’s return type, which is called contravariance. This can be traced back to the Liskov substitution principle.  
+In Java, type parameters of a generic type are invariant by default due to their potential occurrence in both input and output positions at the same time. A classic example of this is the methods T get() (output position) and add(T element) (input position) in interface java.util.List. We could construct cases with invalid typing in List if T were not invariant.  
+Wildcards can be employed to achieve covariance or contravariance in situations where the type parameter appears in one position only:
+- <? extends Foo> for covariance (input positions)
+- <? super Foo> for contravariance (output positions)
+However, covariance is ineffective for the return type of method since it is not an input position. Making it contravariant also has no effect since it is the receiver of the return value which must be contravariant (use-site variance in Java). Consequently, a return type containing wildcards is generally a mistake.  
+
+- Upper bound Wildcard − ? extends Type.
+- Lower bound Wildcard − ? super Type.
+- Unbounded Wildcard − ?
+
+Classify the type of parameters passed to a method as in and out parameter.  
+
+- **in variable** − An in variable provides data to the code.  
+  For example, copy(src, destination).
+  Here src acts as in variable being data to be copied.
+- **out variable** − An out variable holds data updated by the code.  
+  For example, copy(src, destination).  
+  Here destination acts as in variable having copied data.
+
+**Guidelines for Wildcards.**  
+- **Upper bound wildcard** − If a variable is of in category, use extends keyword with wildcard.
+- **Lower bound wildcard** − If a variable is of out category, use super keyword with wildcard.
+- **Unbounded wildcard** − If a variable can be accessed using Object class method then use an unbound wildcard.
+- **No wildcard** − If code is accessing variable in both in and out category then do not use wildcards.
+
 ### Wild Cards & Upper Bound Wild Card
 The question mark symbol "?" is called a wild card in generics.  
 When we us it without any kind of "extension" it is called "unbounded" wildcard.  
@@ -176,4 +206,17 @@ THIS IS CALLED Upper Bound Wild Card**
       // limit the wildcard
       // in this case only the children of Number can be passed to "print" method
       <E extends Number> void print(E value)
+
+### Lower Bounded WildCards
+Unlike the "Upper Bounded" where we use a question mark that extends other, in "Lower Bounded" we use "super".  
+This means, using the "Lower Bounded" that only parents of specified type can be used.  
+
+
+    // Upper Bounded
+    // In this case we can only pass Number or its children like Integer and so on
+    <T extends Number> void doSome(T data) {}
+
+    // LOWER BOUNDED
+    // In this case we can only pass Integer or its parent (a Number in this particular case)
+    <T super Integer> void doSome(T data) {}
 
