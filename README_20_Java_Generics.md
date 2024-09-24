@@ -4,7 +4,9 @@
 
 Using Generics we can reuse the code.  
 **NOTE: Generics are not available for static attributes. This is because only single instance can be inferred with the appropriated type.**   
-We can make also an interface Generic and extends or implement it.  
+We can make also an interface Generic and extends or implement it.
+
+**NOTE:** The behavior of non-generic object depend on the location in which the object is present. See the section "Behavior"
 
 **See examples on "courses.basics_strong.generics.section26" package and sub packages.**
 
@@ -241,3 +243,65 @@ NOTE: Read operations have no restrictions on read operations but the thing is t
 - If I am using "Unbounded wildcard" type or "UpperBounded wildcard" type we can perform **only read operation**.  
   Because this question mark stands for unknown type, and we have a List UpperBounded or Unbounded we don't know which type of element to add to list.
 - If I am using "LowerBounded wildcard" according to the super type we can perform write operations. 
+
+### Behavior
+What is happening in this case?
+
+    // we have a non-generic method that use RAW-Type
+    // the area of this method is Non-Generic, it can handle any kind of type
+    static void nonGenericMathod(List rawList) {
+      rawList.add( 10 );
+      rawList.add( "A String" );
+      rawList.add( true );
+    }
+
+    // We declare a modifiable type-parametrized list
+    List<String> stringList = new ArrayList<>( List.of("Basic", "Strong") );
+
+    // Now we pass this type-parametrized list of String to our non-generic method
+    nonGenericMathod( stringList );
+
+    // and print the type-parametrized list
+    System.out.println( stringList );
+
+    // this is the result.....
+    [Basic, Strong, 10, A String, true]
+
+Why? Because the behavior of an object depend on the location in which the object is present.  
+If are in generic area you can only be able to add elements which are of parameterized type.  
+If it is non-generic area you can add any type of elements to that object.  
+The snippet above can produce ClassCastException only if we try to use the list via stream.  
+If we iterate it with normal "for" loop (using Object as type) we'll haven't exception.  
+
+In the opposite scenario:
+
+    // we have a generic method
+    // the area of this method is Generic, it can handle only the type declared
+    static void genericMethod(List<String> stringList) {
+        stringList.add("Foo");
+        stringList.add("A String");
+    }
+
+    // We declare a modifiable raw-type list
+    List rawList = new ArrayList<>( List.of("Basic", "Strong") );
+    rawList.add( 1001 );
+    rawList.add( false );
+    rawList.add( LocalDateTime.now() );
+
+    // Now we pass this raw list to our generic method
+    genericMethod( rawList );
+
+    // and print the raw-type list
+    System.out.println( rawList );
+
+    // this is the result.....
+    [Basic, Strong, 1001, false, 2024-09-24T10:31:44.180029162, Foo, A String]
+
+In this second case, since the "rawList" is raw, this means it handle Object type, and we can use streams on it.
+However, we are broking the behaviors. If the "genericMethod" or the "stringList" needs to iterate the passed list, we will obtain error only at runtime time.  
+We should avoid these situations, the main goal of the Generics is to obtain errors at compile time.  
+
+See the "Behavior" example on "courses.basics_strong.generics.section26" package.  
+
+**So! Never use raw types**
+
