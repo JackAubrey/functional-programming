@@ -305,3 +305,92 @@ See the "Behavior" example on "courses.basics_strong.generics.section26" package
 
 **So! Never use raw types**
 
+### Type Erasure
+Generics are implemented by Java compiler as a front-end conversion called **Erasure**.  
+During the type erasure process the Java compiler erases all the type parameters and replaces each with its first bound:
+- if the type parameter is bounded 
+- or object if the type parameter is unbounded
+
+The compiler generates extra cast where necessary, and at execution time the extra type information has been erased completely by the compiler.  
+Lets see this example:
+
+    // we have this strange method (never do it something like this)
+    public String strangeMethod(Integer intValue) {
+      // here we declare a typed List
+      List<String> typedList = new LinkedList<>();
+      
+      // now we assign the typed list to a raw type list.
+      // here the compiler is performing type-erasure
+      List rawList = typedList;
+
+      // add the input value to our rawList
+      // the raw-type list behavior permit this ugly operation
+      rawList.add( intValue );
+
+      // now return the first element of out typed-list
+      // REMEMBER: raw-typed list is referring to our typed-list.
+      //           this means they have the same object reference.
+      return typedList.getFirst();
+    }
+
+    // now we are going to use that ugly method
+    System.out.println( strangeMethod(102340) );
+
+    // NOTE: That code compile, but during its execution we'll obtain a ClassCastException.
+
+What happened here is during the type erasure process:
+- The line "List<String> typedList = new LinkedList<>()" is equivalent to "List typedList = new LinkedList();".  
+  Compiler removed the generic information from this line.
+- This line "return typedList.iterator().next();" is equivalent to "return (String)typedList.iterator().next();".  
+  The compiler inserted the necessary cast for this.
+
+So, that is why we get error because we are casting this value to String.  
+So type safety and type casting both are performed at compile time only it has no use at runtime.  
+
+Now suppose this:
+    
+    // We have a list declared in this manner
+    ArrayList list = new ArrayList<String>();
+
+    // now we are going to add elements
+    // we have declared an ArrayList<String> but we are able to add whatever in this case.
+    list.add(12);
+    list.add(true);
+    list.add("Hello");
+
+At the time of compilation, as the last step, Java compiler will use the type erasure feature to remove the generic syntax.  
+No compiling error occur because compiler checks only for reference and since we didn't define any type argument with reference type.  
+It ignores what we defined on the right side, so it accepts all kind of data.  
+What happened here is type erasure feature removed the generic syntax.  
+Hence the generic syntax was not available to JVM.  
+The above array-list declaration is equivalent to "ArrayList list = new ArrayList()".
+
+**Notice that the generic parameter on the right with object is optional.  
+It is inferred by the compiler using the reference.  
+This is the reason why we never specify it.**  
+
+This is the right form to use the generics:
+    
+    // Right Form
+    List<String> list = new ArrayList<>(); // the right side is optional. it is infered
+
+
+Another example
+
+    // we have two overloaded methods.
+    //
+    // the compiler give us error because
+    // the erasure of "aMethod" Arraylist<String> is same as "Arraylist<Integer>"
+    //
+    // given the type erasure, for both methods we'll obtain the same signture:
+    //
+    //      public void aMethod(ArrayList list)
+    //
+
+    public void aMethod(ArrayList<String> list) {
+    }
+
+    public void aMethod(ArrayList<String> list) {
+    }
+
+**Again! Never use raw types**
